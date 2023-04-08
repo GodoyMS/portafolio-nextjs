@@ -1,5 +1,5 @@
 import Stack from '@/components/Stack'
-import Profilecard from '@/components/profilecard'
+import Profilecard from '@/components/Profilecard'
 
 const index = () => {
   return (
