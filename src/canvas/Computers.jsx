@@ -9,9 +9,17 @@ import { AnimationMixer } from 'three';
 
 const Computers = ({ isMobile }) => {
   const computer=useGLTF("./desktop_pc/scene.gltf");
-  const rug= useGLTF("./rug.glb");
+  const rug= useGLTF("./shaggy_rug.glb");
   const desk=useGLTF("./desk.glb");
+  const coolMan=useGLTF("./cool_man.glb");
+  const meshRef = useRef();
+  const { actions } = useAnimations(coolMan.animations, meshRef);
 
+  useEffect(() => {
+    actions['salute'].reset().play();
+   
+  }, []);
+  
 
 
     
@@ -29,11 +37,24 @@ const Computers = ({ isMobile }) => {
         shadow-mapSize={1024}
       />
       
-      <pointLight position={[20,20,20]} color="##3399ff" castShadow intensity={1}   />
+      <pointLight position={[15,20,0]} color="##3399ff" castShadow intensity={1}   />
 
       
-
+{/*Man*/}
+    <group ref={meshRef} dispose={null} >
+    <mesh 
+  
+    
+  >
    
+    <primitive
+      object={coolMan.scene}
+      scale={isMobile ? 1.5 : 2}
+      position={isMobile ? [0, -1.4, -1.5] : [3, -2.4, -1.5]}
+      rotation={[0,1.3, 0]}
+    />
+  </mesh>
+    </group>
  
 
     <mesh>
@@ -53,8 +74,8 @@ const Computers = ({ isMobile }) => {
     <mesh>      
      <primitive
        object={rug.scene}
-       scale={isMobile ? 0.05 : 0.05}
-       position={ isMobile? [-1.5, -1.4, 0] :[-1.5, -2.4, 0] }
+       scale={isMobile ? 0.5 : 0.7}
+       position={ isMobile? [-1.5, -1.4, 0] :[0, -2.4, 0] }
        rotation={ [0, 0, 0]}
 
      />

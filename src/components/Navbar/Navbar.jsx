@@ -24,7 +24,7 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <Link href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img className="h-8 w-auto" src="" alt="" />
+            <span className='-mx-3 block rounded-lg px-3 py-2 text-base leading-7 text-[#4a61e6] font-bold'  >GODOY DEV</span>
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -74,11 +74,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             <Link href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Developer</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
+              <span className='-mx-3 block rounded-lg px-3 py-2 text-base leading-7  text-[#4a61e6] font-bold'  >GODOY DEV</span>
             </Link>
             <button
               type="button"
@@ -94,7 +90,7 @@ export default function Navbar() {
               <div className="space-y-2 py-6">
                 {menuLinks.map((link)=>(
                     link.title!=="Hire Me" &&(
-                        <Link  href={link.Link} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-100 hover:bg-gray-900">
+                        <Link  href={link.Link}  onClick={()=>setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-100 hover:bg-gray-900">
                                             {link.title}
                         </Link>
                         
@@ -107,6 +103,7 @@ export default function Navbar() {
               {menuLinks.map((link)=>(
                     link.title==="Hire Me" &&(
                         <Link href={link.Link}
+                        onClick={()=>setMobileMenuOpen(false)} 
                         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-100 hover:bg-gray-900">
                                             {link.title}
                         </Link>                        

@@ -27,10 +27,10 @@ const Stack = () => {
       
         <div className='flex  flex-row flex-wrap justify-center gap-10'>
           {techLogos.map((technology) => (
-            <div  className=' group flex relative p-4 rounded-full bg-slate-200' key={technology.name}>          
-              <img src={technology.icon.src} className="w-12 h-12 "/>
-              <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
-          -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto">{technology.name}</span>
+            <div  className=' group flex relative p-1 lg:p-4 rounded-full bg-slate-200' key={technology.name}>          
+              <img src={technology.icon.src} className=" h-7 w-7 lg:w-12 lg:h-12 "/>
+              <span className="group-hover:opacity-100 transition-opacity bg-gray-900 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+          -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto z-30">{technology.name}</span>
             </div>
           ))}
         </div>
