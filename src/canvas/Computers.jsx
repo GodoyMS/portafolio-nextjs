@@ -8,19 +8,10 @@ import { useFrame,useThree } from '@react-three/fiber';
 import { AnimationMixer } from 'three';
 
 const Computers = ({ isMobile }) => {
-  const man = useGLTF("./dancing_man.glb");
   const computer=useGLTF("./desktop_pc/scene.gltf");
   const rug= useGLTF("./rug.glb");
   const desk=useGLTF("./desk.glb");
-  console.log(man)
-  const meshRef = useRef();
-  const { actions,animations } = useAnimations(man.animations, meshRef);
 
-  useEffect(() => {
-    actions['Take 001'].reset().play();
-   
-  }, []);
-  
 
 
     
@@ -42,20 +33,7 @@ const Computers = ({ isMobile }) => {
 
       
 
-    <group ref={meshRef} dispose={null} >
-    <mesh 
-  
-    
-  >
    
-    <primitive
-      object={man.scene}
-      scale={isMobile ? 0.015 : 0.02}
-      position={isMobile ? [1, -1.25, 0] : [1.5, -2.25, -1]}
-      rotation={[0, 2, 0]}
-    />
-  </mesh>
-    </group>
  
 
     <mesh>
