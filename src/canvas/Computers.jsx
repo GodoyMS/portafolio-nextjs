@@ -15,10 +15,6 @@ const Computers = ({ isMobile }) => {
   const meshRef = useRef();
   const { actions } = useAnimations(coolMan.animations, meshRef);
 
-  useEffect(() => {
-    actions['salute'].reset().play();
-   
-  }, []);
   
 
 
