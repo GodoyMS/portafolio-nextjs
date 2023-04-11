@@ -1,5 +1,6 @@
 import React from 'react'
-import { projects } from '@/constants'
+import { projects } from '@/constants';
+
 import ProjectCard from '@/components/ProjectCard/ProjectCard'
 const index = () => {
   return (
