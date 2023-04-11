@@ -36,13 +36,13 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import profile from "./profile.jpg";
-import clinicProject from "./projects/clinics_crm.png";
-import shirtaiProejct from "./projects/shirt_ai.png";
-import moviedbProject from "./projects/moviedb_api.png"
-import rentRoomProject from "./projects/rentroom.png"
-import neoEnergyProject from "./projects/neo_energy.png"
-import calendarAppProject from "./projects/calendar_app.png"
-import countrySearcherProject from "./projects/country_searcher.png"
+import clinicProject from "./projects/clinics-crm.jpg";
+import shirtaiProejct from "./projects/shirt-ai.jpg";
+import moviedbProject from "./projects/moviedb-api.jpg"
+import rentRoomProject from "./projects/rentroom.jpg"
+import neoEnergyProject from "./projects/neo-energy.jpg"
+import calendarAppProject from "./projects/calendar-app.jpg"
+import countrySearcherProject from "./projects/country-searcher.jpg"
 export {
   clinicProject,
   shirtaiProejct,
