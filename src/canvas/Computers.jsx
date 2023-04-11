@@ -13,8 +13,12 @@ const Computers = ({ isMobile }) => {
   const desk=useGLTF("./desk.glb");
   const coolMan=useGLTF("./cool_man.glb");
   const meshRef = useRef();
-  const { actions } = useAnimations(coolMan.animations, meshRef);
+  // const { actions } = useAnimations(coolMan.animations, meshRef);
 
+  // useEffect(() => {
+  //   actions['salute'].reset().play();
+   
+  // }, []);
   
 
 

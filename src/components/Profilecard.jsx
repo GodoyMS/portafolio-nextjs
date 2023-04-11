@@ -3,6 +3,7 @@ import { UserIcon } from "@heroicons/react/24/outline"
 import {MapIcon} from "@heroicons/react/24/outline"
 import {EnvelopeIcon} from "@heroicons/react/24/outline"
 const Profilecard = () => {
+
   return (
     <div className="w-full max-w-sm overflow-hidden mx-auto my-4 col-span-4 sm:col-span-1 rounded-lg shadow-lg">
     <img className="object-cover object-center w-full h-80" src={`${profile.src}`} alt="avatar"/>

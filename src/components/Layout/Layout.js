@@ -7,7 +7,7 @@ export default function Layout({ children }) {
 
         
         
-        <main className="dark:bg-slate-600">{children}</main>
+        <main className="dark:bg-slate-600 max-w-6xl mx-auto">{children}</main>
    
       </div>
     );

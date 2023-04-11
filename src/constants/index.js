@@ -28,7 +28,14 @@ import {
   materialui,
   php,
   express,
-  chakra
+  chakra,
+  clinicProject,
+  shirtaiProejct,
+  moviedbProject,
+  rentRoomProject,
+  neoEnergyProject,
+  calendarAppProject,
+  countrySearcherProject,
 
 } from "../assets";
 
@@ -136,6 +143,7 @@ const technologies = [
 
 ];
 
+
 const experiences = [
   {
     title: "React.js Developer",
@@ -218,70 +226,211 @@ const testimonials = [
   },
 ];
 
+
 const projects = [
   {
-    name: "Car Rent",
+    key:1,
+    name: "3D shirt AI generator model",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "Web 3D WEBGL based project that allows users to customize a 3D shirt model, powered by AI and Three.js",
     tags: [
       {
-        name: "react",
+        name: "React",
         color: "blue-text-gradient",
       },
+     
       {
-        name: "mongodb",
+        name: "NodeJS",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Three.js",
         color: "green-text-gradient",
       },
       {
-        name: "tailwind",
-        color: "pink-text-gradient",
+        name: "Framer Motion",
+        color: "green-text-gradient",
       },
     ],
-    image: carrent,
-    source_code_link: "https://github.com/",
+    viewDemo:true,
+    workingOn:false,
+    bigProject:true,
+    image: shirtaiProejct,
+    demoLink:"https://shirt-ai-generator.vercel.app/",
+    gitHubLink: "https://github.com/GodoyMS/shirt-ai-generator",
   },
   {
-    name: "Job IT",
+    key:2,
+    name: "Neo Energia",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "A custom project for 'Neo Enería' company, it focuses on UX/UI experience, image designs  and a third party email integration. ",
     tags: [
       {
-        name: "react",
+        name: "PHP,Javascript",
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "Html,CSS",
         color: "green-text-gradient",
       },
       {
-        name: "scss",
+        name: "Bootstrap",
         color: "pink-text-gradient",
       },
     ],
-    image: jobit,
-    source_code_link: "https://github.com/",
+    viewDemo:true,
+    workingOn:false,
+    bigProject:true,
+    image: neoEnergyProject,
+    demoLink:"https://godoyms.github.io/Neo_energy/",
+    gitHubLink:"https://github.com/GodoyMS/Neo_energy",
   },
   {
-    name: "Trip Guide",
+    key:3,
+    name: "Alpha-clinicas",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "Customer relationship management system designed specifically for clinics and healthcare organizations. It allows clinics to manage their patient information, appointments, and billing in one centralized location ",
     tags: [
       {
-        name: "nextjs",
+        name: "PHP, Javascript",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "MYSQL",
         color: "green-text-gradient",
       },
       {
-        name: "css",
+        name: "TailwindCSS",
         color: "pink-text-gradient",
       },
     ],
-    image: tripguide,
-    source_code_link: "https://github.com/",
+    viewDemo:true,
+    workingOn:false,
+    bigProject:true,
+    image: clinicProject,
+    demoLink:"https://alpha-clinicas.000webhostapp.com/",
+    gitHubLink:"https://github.com/GodoyMS/clinics_admin_crm",
   },
+  {
+    key:4,
+    name: "Movie DB API",
+    description:
+      "It is designed to retrieve information about movies and suggestions based on what a user explores. It uses 'The movie DB' RESTful API for accessing movie data. ",
+    tags: [
+      {
+        name: "ReactJS",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Axios",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Styled Components",
+        color: "pink-text-gradient",
+      },
+    ],
+    viewDemo:true,
+    workingOn:false,
+    bigProject:true,
+    image: moviedbProject,
+    demoLink:"https://api-movie-eta.vercel.app/",
+    gitHubLink:"https://github.com/GodoyMS/apiMovie",
+  },
+  {
+    key:5,
+    name: "Rent a Room app",
+    description:
+      "A project designed to search for a rentroom in everycountry, users can publish a rentroom and be contacted. It uses high performance user information cache",
+    tags: [
+      {
+        name: "ReactJS",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "NodeJS",
+        color: "green-text-gradient",
+      },
+      {
+        name: "MONGODB",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Redis",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Material UI",
+        color: "pink-text-gradient",
+      },
+    
+    ],
+    viewDemo:true,
+    workingOn:true,
+    bigProject:true,
+    image: rentRoomProject,
+    demoLink:"https://rentroom-app-mern.vercel.app/",
+    gitHubLink:"https://github.com/GodoyMS/rentroom-app-mern",
+  },
+  {
+    key:6,
+    name: "Calendar app",
+    description:
+      "This project consumes  'Calendar.io' api and it allows user to create/delete events on a fully functional calendar ",
+    tags: [
+      {
+        name: "ReactJS",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "NodeJS",
+        color: "green-text-gradient",
+      },
+      {
+        name: "MONGODB",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Calendar.io",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Material UI",
+        color: "pink-text-gradient",
+      },
+    
+    ],
+    viewDemo:true,
+    workingOn:false,
+    bigProject:false,
+    image: calendarAppProject,
+    demoLink:"https://calendarapp-client.vercel.app/",
+    gitHubLink:"https://github.com/GodoyMS/calendarapp-client",
+  },
+  {
+    key:7,
+    name: "Country Searcher",
+    description:
+      "This is a  RESTful API consuming project to access  data of every country, it allows a user to search by contry name, region,capital and a continent filter ",
+    tags: [
+      {
+        name: "HTML CSS",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Javascript vanilla",
+        color: "green-text-gradient",
+      },
+    
+    ],
+    viewDemo:true,
+    workingOn:false,
+    bigProject:false,
+    image: countrySearcherProject,
+    demoLink:"https://godoyms.github.io/Country_searcher/#_home",
+    gitHubLink:"https://github.com/GodoyMS/Country_searcher",
+  },
+ 
 ];
 
 export { services, technologies, experiences, testimonials, projects };

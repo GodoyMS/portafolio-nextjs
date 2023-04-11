@@ -22,7 +22,7 @@ export default function Navbar() {
     <header >
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <Link href="#" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <span className='-mx-3 block rounded-lg px-3 py-2 text-base leading-7 text-[#4a61e6] font-bold'  >GODOY DEV</span>
           </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
 
         {menuLinks.map((link)=>(
                             link.title==="Hire Me" &&(
-                                    <Link  href={link.Link}  className="text-sm  block rounded-lg px-3 py-2 font-semibold leading-6 text-gray-100 bg-slate-700">
+                                    <Link  href={link.Link}  className="text-sm transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none hover:bg-slate-600 block rounded-lg px-3 py-2 font-semibold leading-6 text-gray-100 bg-slate-700">
                                             {link.title} <span aria-hidden="true">&rarr;</span>
                                         </Link>
                                     
