@@ -17,7 +17,7 @@ const Stack = () => {
   }, []);
   
   return (
-    <div className="col-span-4 px-4  sm:col-span-3 mx-auto">
+    <div className=" px-4   mx-auto">
         <h2 className=" ml-2  font-black text-center text-white lg:text-[30px] text-[20px]  white-text">
             Technologies I use
           </h2>

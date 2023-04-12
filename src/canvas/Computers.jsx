@@ -1,18 +1,23 @@
 import React, { useRef,useMemo } from 'react';
 
 import { Suspense, useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas,useThree } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF,useAnimations, GizmoHelper, GizmoViewport, GizmoViewcube } from "@react-three/drei";
 import CanvasLoader from "./Loader";
-import { useFrame,useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { AnimationMixer } from 'three';
 
 const Computers = ({ isMobile }) => {
-  const computer=useGLTF("./desktop_pc/scene.gltf");
-  const rug= useGLTF("./shaggy_rug.glb");
-  const desk=useGLTF("./desk.glb");
-  const coolMan=useGLTF("./cool_man.glb");
+  const computer=useGLTF("./desktop_pc/low_poly_gaming_desk_refactored.glb");
+  const pcGaming=useGLTF("./pc_gamer/pc_gamer.glb")
+  const coolMan=useGLTF("./man/man_in_suit_react.glb");
   const meshRef = useRef();
+  const deg2rad = degrees => degrees * (Math.PI / 180);
+  useThree(({camera}) => {
+    camera.rotation.set(deg2rad(30), 0, 0);
+  });
+
+  
   // const { actions } = useAnimations(coolMan.animations, meshRef);
 
   // useEffect(() => {
@@ -24,7 +29,7 @@ const Computers = ({ isMobile }) => {
 
     
   return (
-    <group position={[0,0,0]} rotation={[0,0,0]} >
+    <group position={isMobile ? [-2,-1.5,0] : [0,-0.5,0]} rotation={[0,0,0]} >
 
        <hemisphereLight intensity={0.15} groundColor='black' />
        <spotLight
@@ -49,49 +54,41 @@ const Computers = ({ isMobile }) => {
    
     <primitive
       object={coolMan.scene}
-      scale={isMobile ? 1.5 : 2}
-      position={isMobile ? [0, -1.4, -1.5] : [3, -2.4, -1.5]}
+      scale={isMobile ? 0.03 : 0.03}
+      position={isMobile ? [0, -2.4, -1.5] : [0, -2.4, -1.5]}
       rotation={[0,1.3, 0]}
     />
   </mesh>
     </group>
  
-
+    <group position={isMobile ? [0,0,-1]: [0,0,0]}>
     <mesh>
-     
-      
       <primitive
         object={computer.scene}
-        scale={isMobile ? 0.2 : 0.3}
-        position={ isMobile? [-1, 0, -0.3] :[-1.5, -0.5, 0] }
-        rotation={ [0, 0, 0]}
+        scale={isMobile ? 2.5 : 2.5}
+        position={ isMobile? [-3, -0.5, 0] :[-3, -0.5, 0] }
+        rotation={ [0, 1.7, 0]}
 
       />
-    </mesh>
+    </mesh>    
 
-    {/*Rug*/}
+       {/*PC gaming*/}
 
-    <mesh>      
+       <mesh>      
      <primitive
-       object={rug.scene}
-       scale={isMobile ? 0.5 : 0.7}
-       position={ isMobile? [-1.5, -1.4, 0] :[0, -2.4, 0] }
-       rotation={ [0, 0, 0]}
+       object={pcGaming.scene}
+       scale={isMobile ? 3 : 3}
+       position={ isMobile? [-3.5, 0.85, 2.5] :[-3.5, 0.85, 2.5] }
+       rotation={ [0, 1.7, 0]}
 
      />
    </mesh>
 
-    {/*Desk*/}
+    </group>
+   
 
-    <mesh>      
-     <primitive
-       object={desk.scene}
-       scale={isMobile ? 0.007: 0.01}
-       position={ isMobile? [-1.2, -1.25, 0] :[-1.5, -2.35, 0.5] }
-       rotation={ [0, 1.58, 0]}
 
-     />
-   </mesh>
+
     
     {/* <mesh  position={isMobile ? [1,-1.45,0] : [-1.7,-1.5,0.5]} rotation={[Math.PI / 2, 0, 0]}castShadow receiveShadow >
                 <boxGeometry args={[2.2,4.2,1.8]}/>
@@ -136,7 +133,7 @@ const ComputersCanvas = () => {
       shadows
       dpr={[1, 2]}
       
-      camera={{ position: [20, 3, 5], fov: 25 }}
+      camera={{ position: isMobile ? [30, 3, 5]:[20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
     >
        

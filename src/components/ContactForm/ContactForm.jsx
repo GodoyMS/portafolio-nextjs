@@ -8,7 +8,7 @@ const ContactForm = () => {
     const [name, setName]=useState('')
     const [email, setEmail] = useState('');
     const[message,setMessage]=useState('');
-    const[openToast,setOpenToast]=useState(true)
+    const[openToast,setOpenToast]=useState(false)
     const handleCloseToast=()=>setOpenToast(false)
 
     const resetValues=()=>{

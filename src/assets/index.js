@@ -43,6 +43,7 @@ import rentRoomProject from "./projects/rentroom.jpg"
 import neoEnergyProject from "./projects/neo-energy.jpg"
 import calendarAppProject from "./projects/calendar-app.jpg"
 import countrySearcherProject from "./projects/country-searcher.jpg"
+import zyp from "./zyplogo.png"
 export {
   clinicProject,
   shirtaiProejct,
@@ -85,5 +86,6 @@ export {
   carrent,
   jobit,
   tripguide,
-  profile
+  profile,
+  zyp
 };

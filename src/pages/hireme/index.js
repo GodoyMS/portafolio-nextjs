@@ -4,7 +4,10 @@ import ContactForm from '@/components/ContactForm/ContactForm'
 const index = () => {
 
   return (
-    <ContactForm/>
+    <div className='max-w-6xl mx-auto'>
+      <ContactForm/>
+
+    </div>
   )
 }
 
