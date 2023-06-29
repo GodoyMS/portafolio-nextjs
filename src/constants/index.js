@@ -36,6 +36,8 @@ import {
   neoEnergyProject,
   calendarAppProject,
   countrySearcherProject,
+  monstruocreativo,
+  monstruocreativoacademy
 
 } from "../assets";
 
@@ -228,6 +230,76 @@ const testimonials = [
 
 
 const projects = [
+  {
+    key:11,
+    name: "Monstruo Creativo Academy",
+    description:
+      "NextJS project intranet for learners, robust system to approach thousands of students ",
+    tags: [
+      {
+        name: "Nextjs",
+        color: "blue-text-gradient",
+      },     
+      {
+        name: "Tailwindcss",
+        color: "blue-text-gradient",
+      },  
+      {
+        name: "Node JS",
+        color: "green-text-gradient",
+      },
+      {
+        name: "PayloadCMS",
+        color: "green-text-gradient",
+      },
+      {
+        name: "DigitalOcean",
+        color: "green-text-gradient",
+      }
+
+    ],
+    viewDemo:true,
+    workingOn:false,
+    bigProject:true,
+    image: monstruocreativoacademy,
+    demoLink:"https://monstruocreativo.academy",
+    gitHubLink: "",
+  },
+  {
+    key:12,
+    name: "Monstruo Creativo Marketing Website",
+    description:
+      "Web 3D WEBGL based project  and stunning user interface for a marketing company",
+    tags: [
+      {
+        name: "Nextjs",
+        color: "blue-text-gradient",
+      },     
+      {
+        name: "Tailwindcss",
+        color: "blue-text-gradient",
+      },  
+      {
+        name: "Three.js",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Framer Motion",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Digital Ocean",
+        color: "green-text-gradient",
+      }
+
+    ],
+    viewDemo:true,
+    workingOn:false,
+    bigProject:true,
+    image: monstruocreativo,
+    demoLink:"https://monstruocreativo.com",
+    gitHubLink: "",
+  },
   {
     key:1,
     name: "3D shirt AI generator model",

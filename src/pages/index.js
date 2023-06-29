@@ -21,7 +21,6 @@ const Home = () => {
         <div className='flex justify-center gap-4'>
           <Link href={"resume.pdf"} download={true} target='_blank'> <button className=' inline-flex gap-2   rounded-lg   px-3 py-2.5 text-base font-semibold leading-7 text-gray-100 bg-[#4a61e6]  hover:bg-[#1560b6]'> Resume <ArrowDownTrayIcon className='h-6 w-6 text-gray-200' /></button></Link>
           <Link href={"/hireme"}><button className='inline-flex gap-2 rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-100 bg-slate-800 hover:bg-gray-700'>Contact <EnvelopeIcon className="w-6 h-6 text-gray-200"/></button></Link>
-
         </div>
 
         

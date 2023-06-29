@@ -2,8 +2,8 @@
 const Toast = ({message,closeToast}) => {
   return (
     <div className=" max-w-xs mx-auto">
-        <div class="  bg-[#725afa] text-sm text-white rounded-md shadow-lg dark:bg-gray-700 mb-3 ml-3" role="alert">
-        <div class="flex p-4 items-center">
+        <div class="  bg-[#3e4cc7] text-sm text-white rounded-md shadow-lg dark:bg-gray-700 mb-3 ml-3" role="alert">
+        <div class="flex  p-4  items-center">
             {message}
 
         <div class="ml-auto">
