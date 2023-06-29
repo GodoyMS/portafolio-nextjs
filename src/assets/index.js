@@ -26,8 +26,8 @@ import express from "./tech/express.png";
 import redis from "./tech/redis.png";
 import chakra from  "./tech/chakra-ui.png"
 import php from "./tech/php.png"
-import monstruocreativo from "./projects/monstruocreativo.jpg"
-import monstruocreativoacademy from "./projects/monstruocreativoacademy.jpg"
+import monstruocreativo from "./projects/monstruocreativo.png"
+import monstruocreativoacademy from "./projects/monstruocreativoacademy.png"
 
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
