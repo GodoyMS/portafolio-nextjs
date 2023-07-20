@@ -82,7 +82,7 @@ const EducationBlock = () => {
                 <li>
                     <div  className="items-center block p-3 sm:flex ">
                         <a href='https://www.linkedin.com/school/ibo/' target='_blank'> 
-                            <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/International_Baccalaureate_Logo.svg/1024px-International_Baccalaureate_Logo.svg.png" alt="international Baccalaureate"/>
+                            <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://www.ibo.org/globalassets/new-structure/icons-and-logos/images/in-collaboration-with-ib-pos-en.png" alt="international Baccalaureate"/>
                         </a>
 
                         <div className="text-gray-600 dark:text-gray-400">
