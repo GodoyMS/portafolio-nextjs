@@ -12,7 +12,7 @@ const EducationBlock = () => {
             <ol className="mt-3 divide-y divider-gray-200 dark:divide-gray-700">
                 <li>
                     <div className="items-center block p-3 sm:flex ">
-                        <a href="https://www.linkedin.com/school/utp-universidad-tecnologica-del-peru/" target='_blank' > <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://media.licdn.com/dms/image/C560BAQGK4c4hUBu7vQ/company-logo_200_200/0/1578582024976?e=1689206400&v=beta&t=4U3LuXL6F9olc-lOoPlysfi2yPl-xOhgfeniAee_F9M" alt="UTP"/></a>
+                        <a href="https://www.utp.edu.pe/" target='_blank' > <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://utp.hiringroom.com/data/accounts/utp/vacancies/007ea4a8880ca6c4d70934b194f33083.jpeg" alt="UTP"/></a>
                         <div className="text-gray-600 dark:text-gray-400">
                             <div className="text-base font-normal"><span className="font-medium text-gray-200">Technological University of Peru</span></div>
                             <div className="text-sm font-normal text-gray-400">Mechatronics Engineering</div>
@@ -25,7 +25,7 @@ const EducationBlock = () => {
                 </li>
                 <li>
                     <div  className="items-center block p-3 sm:flex ">
-                        <a href='https://www.linkedin.com/school/escalab/' target='_blank'> <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://media.licdn.com/dms/image/C4E0BAQHXqBXR_3JdXA/company-logo_200_200/0/1647642974232?e=1689206400&v=beta&t=qup0cgkOoynjwsxF2CRODroI_r8GZg3dC8QUHj0NJnc" alt="Escalab"/> </a>
+                        <a href='https://www.linkedin.com/school/escalab/' target='_blank'> <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://scontent.flim1-1.fna.fbcdn.net/v/t39.30808-6/276070164_473068504390495_6031914195338110999_n.jpg?_nc_cat=103&cb=99be929b-59f725be&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=YpOotkKVDXwAX_d_3Cp&_nc_ht=scontent.flim1-1.fna&oh=00_AfCgDsGRd7_PO0dl3S6ee-hSmj0T2IvDMf24sGTe3eC3aA&oe=64BD4960" alt="Escalab"/> </a>
 
                         <div className="text-gray-600 dark:text-gray-400">
                             <div className="text-base font-normal"><span className="font-medium text-gray-200">Escalab Tech</span></div>
@@ -43,7 +43,7 @@ const EducationBlock = () => {
                 </li>
                 <li>
                     <div  className="items-center block p-3 sm:flex ">
-                        <a href='https://www.linkedin.com/company/meta/' target='_blank'> <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://media.licdn.com/dms/image/C4E0BAQFdNatYGiBelg/company-logo_200_200/0/1636138753911?e=1689206400&v=beta&t=UI2yiztuiF-ANXm5D1hNSh9v-4sxn9s_OtEgf1n4CC4" alt="Meta Company"/></a>
+                        <a href='https://www.linkedin.com/company/meta/' target='_blank'> <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://img.freepik.com/vector-gratis/vector-icono-redes-sociales-archivo-logotipo-meta-3-noviembre-2021-bangkok-tailandia_53876-157873.jpg?w=2000" alt="Meta Company"/></a>
 
                         <div className="text-gray-600 dark:text-gray-400">
                             <div className="text-base font-normal"><span className="font-medium text-gray-200">Meta | Coursera</span></div>
@@ -62,7 +62,7 @@ const EducationBlock = () => {
                 <li>
                     <div className="items-center block p-3 sm:flex ">
                         <a href='https://www.linkedin.com/school/asociacion-cultural-peruano-britanica-britanico/' target='_blank'>
-                            <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://media.licdn.com/dms/image/C4E0BAQE6z5IPBQbeiw/company-logo_200_200/0/1531602041928?e=1689206400&v=beta&t=jCKxZpqLpoUzGXvgJ90tLX0qD822KndbFvdiEhc_ivI" alt="British peruvian cultural association"/>
+                            <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://britanico.edu.pe/uploads/novedades/novedades-matricula-via-telefonica-2.jpg" alt="British peruvian cultural association"/>
 
                         </a>
                         <div className="text-gray-600 dark:text-gray-400">
@@ -82,7 +82,7 @@ const EducationBlock = () => {
                 <li>
                     <div  className="items-center block p-3 sm:flex ">
                         <a href='https://www.linkedin.com/school/ibo/' target='_blank'> 
-                            <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://media.licdn.com/dms/image/C4E0BAQH1trVeMU7kyA/company-logo_200_200/0/1519855985203?e=1689206400&v=beta&t=mLgW-_Cp155pUUk2SbxbgjAeuyG8RdSBccQ0ta8sx_M" alt="international Baccalaureate"/>
+                            <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/International_Baccalaureate_Logo.svg/1024px-International_Baccalaureate_Logo.svg.png" alt="international Baccalaureate"/>
                         </a>
 
                         <div className="text-gray-600 dark:text-gray-400">

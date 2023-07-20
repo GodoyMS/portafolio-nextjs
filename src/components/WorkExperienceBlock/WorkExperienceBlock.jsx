@@ -27,7 +27,7 @@ const WorkExperienceBlock = () => {
                 </li>
                 <li>
                     <a href='https://www.facebook.com/mymdentalgroup15' target='_blank' className="items-center block p-3 sm:flex ">
-                        <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://scontent.fjau4-1.fna.fbcdn.net/v/t39.30808-6/330830655_995062675194236_3692100036596753569_n.jpg?_nc_cat=103&cb=99be929b-59f725be&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEpFb1OarEaupU53m_iso0ph6o75O-8IjWHqjvk77wiNTcaaM7CDS-0APCi3iCdhxMUN1qEiUKJXrvxgT07WHDz&_nc_ohc=0ugNF9d6WxMAX8wEoaG&_nc_ht=scontent.fjau4-1.fna&oh=00_AfCNm0G46X4uPAK7eUM5IVhTRsgBeEohi_Tmr81EZ7K5ng&oe=64A20D3E" alt="M & M Dental Group"/>
+                        <img className="w-12 h-12 mb-3 mr-3 rounded-full sm:mb-0" src="https://scontent.flim1-1.fna.fbcdn.net/v/t39.30808-6/330830655_995062675194236_3692100036596753569_n.jpg?_nc_cat=103&cb=99be929b-59f725be&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=aRP2Gvh5TB0AX_s68F2&_nc_ht=scontent.flim1-1.fna&oh=00_AfC5h0YSOElVtqqfdlZLiFHhua0D_RSVLstC6GrUt6i9yw&oe=64BDBCBE" alt="M & M Dental Group"/>
 
                         <div className="text-gray-600 dark:text-gray-400">
                             <div className="text-base font-normal"><span className="font-medium text-gray-200">M & M Dental Group</span></div>
