@@ -1,6 +1,7 @@
 import React from 'react'
 import { github } from '@/assets'
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 const ProjectCard = ({information}) => {
   return (
 
@@ -9,7 +10,7 @@ const ProjectCard = ({information}) => {
             {!information.bigProject && (<div className=' absolute top-2 right-2 p-2  text-gray-200 text-xs rounded-md bg-[#430fd3]'> Small project </div>)}
             {information.workingOn && (<div className=' absolute top-10 -left-2 transform -rotate-45  p-2  text-gray-200 text-xs rounded-md bg-[#000000]'> Currently working on </div>)}
 
-                <a className='w-full'><img className="w-full h-full object-cover object" src={information.image.src} alt="photo"/></a>
+                <a className='w-full'><Image width={ 400} height={300} className="w-full h-full object-cover object" src={information.image} alt="photo"/></a>
            
             <div className="text-center py-8 sm:py-6">
                 <p className="text-xl text-gray-300 font-bold mb-2">{information.name}</p>

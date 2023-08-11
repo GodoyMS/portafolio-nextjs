@@ -29,7 +29,7 @@ const Computers = ({ isMobile }) => {
 
     
   return (
-    <group position={isMobile ? [-2,-1.5,0] : [0,-0.5,0]} rotation={[0,0,0]} >
+    <group scale={0.7} position={isMobile ? [-2,-1.5,0] : [0,-0.5,0]} rotation={[0,0,0]} >
 
        <hemisphereLight intensity={0.15} groundColor='black' />
        <spotLight
@@ -42,7 +42,7 @@ const Computers = ({ isMobile }) => {
         shadow-mapSize={1024}
       />
       
-      <pointLight position={[15,20,0]} color="#3399ff" castShadow intensity={1}   />
+      <pointLight position={[15,20,0]} color="#ffffff" castShadow intensity={1}   />
 
       
 {/*Man*/}
