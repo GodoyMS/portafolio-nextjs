@@ -80,17 +80,7 @@ const technologies = [
     id: 1,
     name: "FrontEnd",
     items: [
-      {
-        name: "HTML 5",
-        type: "front",
-        icon: html,
-      },
-      {
-        name: "CSS",
-        type: "front",
-
-        icon: css,
-      },
+     
       {
         name: "JavaScript (ES6+)",
         type: "front",
@@ -114,9 +104,25 @@ const technologies = [
         icon: reactjs,
       },
       {
+        name: "Next.js",
+        type: "front",
+        icon: "/images/icons/nextjs.png",
+      },
+      {
         name: "Redux ",
         type: "front",
         icon: "/images/icons/redux.png",
+      },
+      {
+        name: "HTML 5",
+        type: "front",
+        icon: html,
+      },
+      {
+        name: "CSS",
+        type: "front",
+
+        icon: css,
       },
     ],
   },

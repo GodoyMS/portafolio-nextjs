@@ -93,7 +93,7 @@ const Hero = () => {
                 </svg>
               </div>
             </Link>
-            <Link href={"#contact"}>
+            <Link href={"/hireme"}>
               {" "}
               <div className=" inline-flex gap-2   rounded-md  font-bold  px-10 py-2.5 text-base  leading-7 hover:text-indigo-400 transition duration-300 hover:border-indigo-400  border-blue-400 border-2   text-blue-400  ">
                 {" "}
