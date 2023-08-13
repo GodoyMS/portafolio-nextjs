@@ -11,7 +11,7 @@ const menuLinks1 = [
   { id: 3, title: "Projects", Link: "/projects" },
   { id: 4, title: "Contact", Link: "/hireme" },
 
-  { id: 5, title: "Resume", Link: "/resume", download: true },
+  { id: 5, title: "Resume", Link: "/GodoyMS_Resume.pdf", download: true },
 ];
 const menuLinks = [
   { title: "Home", Link: "/#home" },
@@ -19,7 +19,7 @@ const menuLinks = [
   { title: "Projects", Link: "/#projects" },
   { title: "Contact", Link: "/hireme" },
 
-  { title: "Resume", Link: "/resume.pdf", download: true },
+  { title: "Resume", Link: "/GodoyMS_Resume.pdf", download: true },
 ];
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

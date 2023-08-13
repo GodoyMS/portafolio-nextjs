@@ -3,7 +3,11 @@ import { ComputersCanvas } from "@/canvas";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowDownTrayIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowDownTrayIcon,
+  DocumentMagnifyingGlassIcon,
+  EnvelopeIcon,
+} from "@heroicons/react/24/outline";
 const styles = {
   paddingX: "sm:px-16 px-6",
   paddingY: "sm:py-16 py-6",
@@ -22,16 +26,17 @@ const styles = {
 const Hero = () => {
   return (
     <section
-      id="home" className={`relative w-full  justify-center h-[80vh] md:h-[80vh]  flex flex-col  max-w-7xl mx-auto  md:grid grid-cols-12`}
+      id="home"
+      className={`relative w-full  justify-center h-[80vh] md:h-[80vh]  flex flex-col  max-w-7xl mx-auto  md:grid grid-cols-12`}
     >
       <div
-            className="absolute   inset-0 mx-auto   translate-x-1/2 translate-y-1/2 xl:translate-x-1/2 blur-[100px] max-w-lg h-[300px]  sm:max-w-4xl sm:h-[600px]"
-            style={{
-              zIndex: 0,
-              background:
-                "linear-gradient(106.89deg, rgba(192, 132, 252, 0.11) 15.73%, rgba(14, 165, 233, 0.41) 15.74%, rgba(232, 121, 249, 0.26) 56.49%, rgba(79, 70, 229, 0.4) 115.91%)",
-            }}
-          ></div>
+        className="absolute   inset-0 mx-auto   translate-x-1/2 translate-y-1/2 xl:translate-x-1/2 blur-[100px] max-w-lg h-[300px]  sm:max-w-4xl sm:h-[600px]"
+        style={{
+          zIndex: 0,
+          background:
+            "linear-gradient(106.89deg, rgba(192, 132, 252, 0.11) 15.73%, rgba(14, 165, 233, 0.41) 15.74%, rgba(232, 121, 249, 0.26) 56.49%, rgba(79, 70, 229, 0.4) 115.91%)",
+        }}
+      ></div>
       <div
         className={`${styles.paddingX} col-span-7 flex flex-row items-center gap-5`}
       >
@@ -58,8 +63,8 @@ const Hero = () => {
             using the most in-demand technologies. Currently, I'm dedicated to
             spearheading innovative projects and crafting robust, accessible
             software while actively contributing to the dynamic team at{" "}
-            <a 
-            target="_blank"
+            <a
+              target="_blank"
               rel="noreferrer noopener"
               href={"https://monstruocreativo.com"}
               className=" text-blue-400 hover:underline"
@@ -69,12 +74,26 @@ const Hero = () => {
           </p>
 
           <div className="flex justify-start flex-wrap mt-10 gap-4">
-            <Link href={"resume.pdf"} download={true} target="_blank">
+            <Link href={"/GodoyMS_Resume.pdf"}  target="_blank">
               <div className=" inline-flex gap-2   rounded-md  font-bold  px-10 py-2.5 text-base  leading-7 hover:text-white hover:bg-blue-600 transition duration-300 hover:animate-pulse  bg-blue-600 border-2 border-blue-700   text-white  hover:border-[#1560b6]">
-                Resume <ArrowDownTrayIcon className="h-6 w-6" />
+                Resume{" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
               </div>
             </Link>
-            <Link href={"#contact"} >
+            <Link href={"#contact"}>
               {" "}
               <div className=" inline-flex gap-2   rounded-md  font-bold  px-10 py-2.5 text-base  leading-7 hover:text-indigo-400 transition duration-300 hover:border-indigo-400  border-blue-400 border-2   text-blue-400  ">
                 {" "}

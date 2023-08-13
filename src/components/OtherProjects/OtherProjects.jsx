@@ -47,7 +47,7 @@ const OtherProjects = () => {
                   }   p-3 flex  gap-10 flex-col justify-between h-full z-50 py-10 rounded-md`}
                 >
                   <div className="flex-1 flex flex-col  z-50 gap-2 col-span-6">
-                   
+                    
                     <div className=" block flex-1  z-40 col-span-3 h-full w-full  ">
                       <div className=" px-4 py-1 flex flex-col justify-start items-start w-full h-full">
                         <Image
