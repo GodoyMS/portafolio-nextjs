@@ -439,6 +439,8 @@ const projects = [
     gitHubLink: "https://github.com/GodoyMS/pasco-jobs-react-native",
     gitHubLinkBackend: "https://github.com/GodoyMS/Pascojobs-backend",
     featured: true,
+    other:false
+
   },
   {
     key: 12,
@@ -494,6 +496,8 @@ const projects = [
       "alpha-clinicas.000webhostapp.com/clinicas/index.php",
     gitHubSecondVersion: "https://github.com/GodoyMS/clinicas-software",
     featured: true,
+    other:false
+
   },
   {
     key: 1,
@@ -529,6 +533,7 @@ const projects = [
     image: shirtaiProejct,
     demoLink: "https://shirt-ai-generator.vercel.app/",
     gitHubLink: "https://github.com/GodoyMS/shirt-ai-generator",
+    other:false
   },
 
   // {
@@ -582,7 +587,44 @@ const projects = [
     image: moviedbProject,
     demoLink: "https://api-movie-eta.vercel.app/",
     gitHubLink: "https://github.com/GodoyMS/apiMovie",
+        other:false
+
   },
+ 
+  {
+    key: 2,
+    name: "Iron Mongery Store",
+    description:
+      "An ecommerce Iron Mongery Store. It shows the products information details and services. It also allows the user to have a functional shopping cart to quote its prices.",
+    tags: [
+      {
+        name: "React",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "TailwindCSS",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Redux",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "HTML",
+        color: "dsa",
+      },
+    ],
+    viewDemo: true,
+    workingOn: false,
+    bigProject: true,
+    image: "/images/work/aceros.jpg",
+    demoLink: "https://acerox-comax-cra.vercel.app",
+    gitHubLink: "https://github.com/GodoyMS/acerox-comax-cra",
+    other:false
+
+  },
+
+
   {
     key: 5,
     name: "Rent a Room app",
@@ -618,38 +660,9 @@ const projects = [
     workingOn: true,
     bigProject: true,
     image: rentRoomProject,
-    demoLink: "https://rentroom-app-mern.vercel.app/",
     gitHubLink: "https://github.com/GodoyMS/rentroom-app-mern",
-  },
-  {
-    key: 2,
-    name: "Iron Mongery Store",
-    description:
-      "An ecommerce Iron Mongery Store. It shows the products information details and services. It also allows the user to have a functional shopping cart to quote its prices.",
-    tags: [
-      {
-        name: "React",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "TailwindCSS",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Redux",
-        color: "pink-text-gradient",
-      },
-      {
-        name: "HTML",
-        color: "dsa",
-      },
-    ],
-    viewDemo: true,
-    workingOn: false,
-    bigProject: true,
-    image: "/images/work/aceros.jpg",
-    demoLink: "https://acerox-comax-cra.vercel.app",
-    gitHubLink: "https://github.com/GodoyMS/acerox-comax-cra",
+    other:true
+
   },
   {
     key: 6,
@@ -682,8 +695,9 @@ const projects = [
     workingOn: false,
     bigProject: false,
     image: calendarAppProject,
-    demoLink: "https://calendarapp-client.vercel.app/",
     gitHubLink: "https://github.com/GodoyMS/calendarapp-client",
+    other:true
+
   },
   {
     key: 7,
@@ -699,6 +713,11 @@ const projects = [
         name: "Javascript vanilla",
         color: "green-text-gradient",
       },
+      {
+        name: "REST API",
+        color: "green-text-gradient",
+      },
+      
     ],
     viewDemo: true,
     workingOn: false,
@@ -706,6 +725,7 @@ const projects = [
     image: countrySearcherProject,
     demoLink: "https://godoyms.github.io/Country_searcher/#_home",
     gitHubLink: "https://github.com/GodoyMS/Country_searcher",
+    other:true
   },
 ];
 

@@ -11,6 +11,7 @@ import Stack from "@/components/Stack";
 import EducationBlock from "@/components/EducationBlock/EducationBlock";
 import WorkExperienceBlock from "@/components/WorkExperienceBlock/WorkExperienceBlock";
 import ProjectsSection from "@/components/Projects/ProjectsSection";
+import OtherProjects from "@/components/OtherProjects/OtherProjects";
 
 const Home = () => {
   return (
@@ -50,7 +51,13 @@ const Home = () => {
         <div className=" mx-auto">
           <ProjectsSection />
         </div>
+
+        <div className=" mx-auto">
+          <OtherProjects />
+        </div>
       </section>
+
+      
     </>
   );
 };

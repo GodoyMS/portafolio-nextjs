@@ -24,7 +24,7 @@ const ProjectsSection = () => {
           }}
         ></div>
         <ol className="mt-3 z-50  space-y-4 ">
-          {projects.map((e) => (
+          {projects.filter((e)=>!e.other).map((e) => (
             <li
               key={e.key}
               onMouseEnter={() => setCurrentItem(e.key)}
@@ -33,7 +33,7 @@ const ProjectsSection = () => {
             >
               <Link
                 style={{ zIndex: 900 }}
-                href={e.demoLink}
+                href={e?.demoLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={` items-center ${
@@ -47,7 +47,7 @@ const ProjectsSection = () => {
                 <div className=" hidden md:block z-40 col-span-6 h-full w-full mb-2 sm:mb-0">
                   <div className=" flex flex-col justify-start items-start w-full h-full">
                     <Image
-                      className=""
+                      className=" rounded-md"
                       width={400}
                       height={300}
                       src={e.image}
@@ -59,7 +59,7 @@ const ProjectsSection = () => {
                   <div className=" block md:hidden z-40 col-span-3 h-full w-full mb-2 sm:mb-0">
                     <div className=" flex flex-col justify-start items-start w-full h-full">
                       <Image
-                        className=""
+                        className=" rounded-md"
                         width={400}
                         height={300}
                         src={e.image}
