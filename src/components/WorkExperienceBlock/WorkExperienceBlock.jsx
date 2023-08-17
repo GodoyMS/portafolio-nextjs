@@ -120,7 +120,7 @@ const WorkExperienceBlock = () => {
       id: 3,
       title: "Z & P Soluciones",
       image: "/images/work/zyp.png",
-      job: "Full Stack PHP and React developer",
+      job: "Frontend React developer",
       details: (
         <p>
           Created a front end User interface to expose information about
