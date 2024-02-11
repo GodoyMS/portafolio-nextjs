@@ -86,7 +86,7 @@ const EducationBlock = () => {
         {
           id: 1,
           name: "Diploma",
-          link: "https://drive.google.com/file/d/17Z3OV-N3zhKKJpDx6n3Pa045kTXB8mUa/view?usp=sharing",
+          link: "https://drive.google.com/file/d/1KNC02RcmrzzirXFqYm2-Li3u8R_bOrDN/view?usp=drive_link",
         },
       ],
       date: "2015-2017",

@@ -20,14 +20,14 @@ const ContactForm = () => {
     setIsLoading(true)
     emailjs
       .send(
-        "service_wvqh7h9",
-        "template_afvupw8",
+        "service_q6xyeto",
+        "template_qnaprz6",
         {
           to_name: "Godoy",
           from_name: name,
           message: `Email: ${email}; message: ${message}`,
         },
-        "3XcSJoXidgs4cXUEL"
+        "q-nyLhorxGo4PIaur"
       )
       .then(
         (result) => {

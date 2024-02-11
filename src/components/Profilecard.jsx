@@ -102,7 +102,14 @@ const Profilecard = () => {
               >
                 Job Platform Android mobile application
               </Link>{" "}
-              for a Peruvian region.
+              for a Peruvian region. and am about to launch a    <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+                href={"https://app.novifycrm.com/"}
+              >
+                CRM for healthcare organizations
+              </Link>{" "}
             </p>{" "}
             <div className="flex items-center mt-4 text-gray-200">
               <MapPinIcon className="w-6 h-6 " />

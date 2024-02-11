@@ -80,7 +80,6 @@ const technologies = [
     id: 1,
     name: "FrontEnd",
     items: [
-     
       {
         name: "JavaScript (ES6+)",
         type: "front",
@@ -392,6 +391,64 @@ const projects = [
   //   demoLink: "https://monstruocreativo.com",
   //   gitHubLink: "",
   // },
+
+  {
+    key: 12,
+    name: "Novify CRM",
+    description:
+      "Customer relationship management system designed specifically for clinics and healthcare organizations. It allows clinics to manage their patient information, appointments, and billing in one centralized location. Unfortunately, I am unable to provide a link to my GitHub repository as the project is the result of extensive effort and is highly valuable ",
+    tags: [
+      {
+        name: "NextJS ",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Redux Toolkit ",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "TailwindCSS",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Material UI",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Axios",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Node JS",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Redis",
+        color: "green-text-gradient",
+      },
+      {
+        name: "MongoDB",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Designs patterns",
+        color: "green-text-gradient",
+      },
+    ],
+    viewDemo: true,
+    workingOn: false,
+    bigProject: true,
+    image: "/images/work/novifyframe.png",
+    demoLink: "https://app.novifycrm.com",
+    // gitHubLink: "https://github.com/GodoyMS/clinic_crm_backend_nodejs",
+    gitHubLinkBackend: "https://github.com/GodoyMS/clinic_crm_backend_nodejs",
+    demoLinkSecondVersion:
+      "alpha-clinicas.000webhostapp.com/clinicas/index.php",
+    gitHubSecondVersion:
+      "https://github.com/GodoyMS/clinicas-clinic_crm_backend_nodejs",
+    featured: true,
+    other: false,
+  },
   {
     key: 11,
     name: "Pasco Jobs Android",
@@ -445,66 +502,9 @@ const projects = [
     gitHubLink: "https://github.com/GodoyMS/pasco-jobs-react-native",
     gitHubLinkBackend: "https://github.com/GodoyMS/Pascojobs-backend",
     featured: true,
-    other:false
-
+    other: false,
   },
-  {
-    key: 12,
-    name: "Clinics CRM",
-    description:
-      "Customer relationship management system designed specifically for clinics and healthcare organizations. It allows clinics to manage their patient information, appointments, and billing in one centralized location  ",
-    tags: [
-      {
-        name: "NextJS ",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Redux Toolkit ",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "TailwindCSS",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Material UI",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Axios",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Node JS",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Redis",
-        color: "green-text-gradient",
-      },
-      {
-        name: "MongoDB",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Designs patterns",
-        color: "green-text-gradient",
-      },
-    ],
-    viewDemo: true,
-    workingOn: false,
-    bigProject: true,
-    image: "/images/work/alphafigma.png",
-    demoLink: "https://alpha-clinicas.com/login",
-    gitHubLink: "https://github.com/GodoyMS/clinic_crm_nextjs",
-    gitHubLinkBackend: "https://github.com/GodoyMS/clinic_crm_backend_nodejs",
-    demoLinkSecondVersion:
-      "alpha-clinicas.000webhostapp.com/clinicas/index.php",
-    gitHubSecondVersion: "https://github.com/GodoyMS/clinicas-software",
-    featured: true,
-    other:false
 
-  },
   {
     key: 1,
     name: "3D shirt AI generator model",
@@ -539,7 +539,7 @@ const projects = [
     image: shirtaiProejct,
     demoLink: "https://shirt-ai-generator.vercel.app/",
     gitHubLink: "https://github.com/GodoyMS/shirt-ai-generator",
-    other:false
+    other: false,
   },
 
   // {
@@ -593,10 +593,9 @@ const projects = [
     image: moviedbProject,
     demoLink: "https://api-movie-eta.vercel.app/",
     gitHubLink: "https://github.com/GodoyMS/apiMovie",
-        other:false
-
+    other: false,
   },
- 
+
   {
     key: 2,
     name: "Iron Mongery Store",
@@ -626,10 +625,8 @@ const projects = [
     image: "/images/work/aceros.jpg",
     demoLink: "https://acerox-comax-cra.vercel.app",
     gitHubLink: "https://github.com/GodoyMS/acerox-comax-cra",
-    other:false
-
+    other: false,
   },
-
 
   {
     key: 5,
@@ -667,8 +664,7 @@ const projects = [
     bigProject: true,
     image: rentRoomProject,
     gitHubLink: "https://github.com/GodoyMS/rentroom-app-mern",
-    other:true
-
+    other: true,
   },
   {
     key: 6,
@@ -702,8 +698,7 @@ const projects = [
     bigProject: false,
     image: calendarAppProject,
     gitHubLink: "https://github.com/GodoyMS/calendarapp-client",
-    other:true
-
+    other: true,
   },
   {
     key: 7,
@@ -723,7 +718,6 @@ const projects = [
         name: "REST API",
         color: "green-text-gradient",
       },
-      
     ],
     viewDemo: true,
     workingOn: false,
@@ -731,7 +725,7 @@ const projects = [
     image: countrySearcherProject,
     demoLink: "https://godoyms.github.io/Country_searcher/#_home",
     gitHubLink: "https://github.com/GodoyMS/Country_searcher",
-    other:true
+    other: true,
   },
 ];
 

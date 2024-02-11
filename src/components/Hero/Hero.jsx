@@ -66,10 +66,10 @@ const Hero = () => {
             <a
               target="_blank"
               rel="noreferrer noopener"
-              href={"https://monstruocreativo.com"}
+              href={"https://www.insource.pe/"}
               className=" text-blue-400 hover:underline"
             >
-              Monstruo Creativo
+              InSource S.A.C.S
             </a>
           </p>
 
