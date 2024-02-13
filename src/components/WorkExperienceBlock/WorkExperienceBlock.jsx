@@ -40,7 +40,7 @@ const WorkExperienceBlock = () => {
         </p>
       ),
       date: "Setp, 2023 - Present",
-      url: "https://monstruocreativo.com",
+      url: "https://insource.pe",
       links: [
         {
           id: 1,
