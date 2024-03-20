@@ -9,7 +9,7 @@ const EducationBlock = () => {
     {
       id: 1,
       title: "Birla Institute of Technology and Science",
-      study: "Computer Science Bachellor",
+      study: "Computer Science Bachelor degree",
       url: "https://www.bits-pilani.ac.in",
       date: "2023-2026",
       image: "/images/education/bits.png",

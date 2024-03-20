@@ -7,6 +7,34 @@ import { FaLink } from "react-icons/fa";
 const WorkExperienceBlock = () => {
   const info = [
     {
+      id: 5,
+      title: "SoftOne",
+      image: "/images/work/soft-one.jpg",
+      job: "Frontend developer",
+      details: (
+        <p>
+         Developing the frontend of a tech-education web application, focused on fast learning  and reading
+      
+      
+        </p>
+      ),
+      date: "Feb, 2024 - Present",
+      url: "https://www.soft-one.org",
+      links: [
+       
+      ],
+      skills: [
+        { id: 12, name: "React" },
+        { id: 13, name: "Nextjs" },
+        { id: 15, name: "Tailwindcss" },
+        { id: 25, name: "Bootstrap" },
+        { id: 17, name: "NodeJS" },
+        { id: 111, name: "Google Cloud" },
+
+
+      ],
+    },
+    {
       id: 10,
       title: "InSource S.A.C.S",
       image: "/images/work/isperu_logo.jpeg",
@@ -39,7 +67,7 @@ const WorkExperienceBlock = () => {
       
         </p>
       ),
-      date: "Setp, 2023 - Present",
+      date: "Setp, 2023 - Feb, 2024",
       url: "https://insource.pe",
       links: [
         {

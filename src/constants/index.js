@@ -496,7 +496,7 @@ const projects = [
     workingOn: false,
     bigProject: true,
     image: "/images/work/pascojobs.png",
-    demoLink: "https://pascojobsperu.com",
+    demoLink: "https://play.google.com/store/apps/details?id=com.godoyliam.pascojobs",
     playstoreLink:
       "https://play.google.com/store/apps/details?id=com.godoyliam.pascojobs",
     gitHubLink: "https://github.com/GodoyMS/pasco-jobs-react-native",
