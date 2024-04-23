@@ -27,6 +27,7 @@ import {
   mysql,
   redis,
   materialui,
+  baseCoin,
   php,
   express,
   chakra,
@@ -504,7 +505,39 @@ const projects = [
     featured: true,
     other: false,
   },
+  {
+    key: 1,
+    name: "NFT Landing",
+    description:
+      "Web 3D WEBGL based project that allows users to customize a 3D shirt model, powered by AI and Three.js",
+    tags: [
+      {
+        name: "React",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Nextjs",
+        color: "green-text-gradient",
+      },
 
+      {
+        name: "Tailwindcss",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Emotion",
+        color: "green-text-gradient",
+      },
+    
+    ],
+    viewDemo: true,
+    workingOn: false,
+    bigProject: true,
+    image: baseCoin,
+    demoLink: "https://coinbase-landing.vercel.app",
+    gitHubLink: "https://github.com/GodoyMS/coinbase-landing",
+    other: false,
+  },
   {
     key: 1,
     name: "3D shirt AI generator model",
@@ -541,6 +574,8 @@ const projects = [
     gitHubLink: "https://github.com/GodoyMS/shirt-ai-generator",
     other: false,
   },
+
+
 
   // {
   //   key: 3,

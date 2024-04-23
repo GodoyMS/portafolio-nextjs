@@ -40,6 +40,8 @@ import tripguide from "./tripguide.png";
 import profile from "./profile.jpg";
 import clinicProject from "./projects/clinics-crm.jpg";
 import shirtaiProejct from "./projects/shirt-ai.jpg";
+import baseCoin from "./projects/pyscho_art.jpg";
+
 import moviedbProject from "./projects/moviedb-api.jpg"
 import rentRoomProject from "./projects/rentroom.jpg"
 import neoEnergyProject from "./projects/neo-energy.jpg"
@@ -89,6 +91,7 @@ export {
   jobit,
   tripguide,
   profile,
+  baseCoin,
   zyp,
   monstruocreativo,
   monstruocreativoacademy
