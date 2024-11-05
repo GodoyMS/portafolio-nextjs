@@ -7,25 +7,111 @@ import { FaLink } from "react-icons/fa";
 const WorkExperienceBlock = () => {
   const info = [
     {
-      id: 5,
-      title: "SoftOne",
-      image: "/images/work/soft-one.jpg",
+      id: 7,
+      title: "Provento Group AB",
+      image: "/images/work/provento.png",
       job: "Frontend developer",
       details: (
         <p>
-         Developing the frontend of a tech-education web application, focused on fast learning  and reading
-      
-      
+         I work as a Full Stack developer in an House hold company in Sweeden
+         <ul className="list-disc">
+          <li>Developed a mobile application for work and social integration for Immigrants to Sweden for IOS and Android
+          </li>
+          <li>Integrated support in 3 languages in the application (Spanish, English, Swedish)
+          </li>
+          <li>Developed an administrative panel for companies, where they can manage applications, jobs, events and more.
+          </li>
+          <li>
+            Deployed Entralink mobile app for Android on Playstore
+          </li>
+          <li>
+            Deployed Entralink mobile app for IOS on Apple Store
+          </li>
+          <li>
+            Developed extensive design for an ERP project in Figma
+          </li>
+          <li>
+          Developed a real estate ERP and administrative processes for the client <a  href="https://lokalfastigheter.se" className=" hover:underline text-blue-500" rel="noopener">Lokalfastigheter i Sundbyberg AB</a>, a real
+        estate agency in Sweden - Sundbyberg
+
+          </li>
+         </ul>
+
         </p>
       ),
-      date: "Feb, 2024 - Present",
-      url: "https://www.soft-one.org",
+      date: "April, 2024 - Present",
+      url: "https://provento.se",
       links: [
+        {
+          id: 1,
+          name: "Entralink web",
+          link: "https://entralink.se"
+        },
+        {
+          id:2,
+          name:"Entralink Android",
+          link:"https://play.google.com/store/apps/details?id=com.provento.asylum"
+        },{
+          id:3,
+          name:"Entralink IOS",
+          link:"https://apps.apple.com/us/app/entralink/id6502832209?platform=iphone"
+        }
        
       ],
       skills: [
-        { id: 12, name: "React" },
-        { id: 13, name: "Nextjs" },
+        { id: 1, name: "React" },
+        { id: 2, name: "React Native" },
+        { id: 3, name: "Javasript" },
+        { id: 4, name: "Typescript" },
+        { id: 5, name: "Tailwindcss" },
+        { id: 6, name: "Mantine" },
+        { id: 7, name: "Tailwindcss" },
+        { id: 8, name: "Bootstrap" },
+        { id: 9, name: "NodeJS" },
+        { id: 10, name: "Google Cloud" },
+        { id: 11, name: "Firebase" },
+
+
+
+      ],
+    },
+    {
+      id: 6,
+      title: "Tadcon SAC",
+      image: "/images/work/tadcon.jpeg",
+      job: "Frontend developer",
+      details: (
+        <p>
+         I work as a Frontend developer for an ERP project for San Ignacio University (Miami, USA)
+         <ul className="list-disc">
+          <li>I developed the visual interfaces of all the pages of the project with Bootstrap, based on designs planned in Figma</li>
+          <li>I developed the generation of complex PDF reports such as transcripts, Application Forms and Course Reports using
+          HTML2PDF and jsPDF In an MVC architecture</li>
+          <li>I integrated APIREST endpoints with AJAX in JSON format Creation of tables and complex reports using DataTable
+          and dynamic calendars using Fullcalendar.io</li>
+         </ul>
+
+        </p>
+      ),
+      date: "August, 2024 - Present",
+      url: "https://www.tadcon.com.pe",
+      links: [
+        {
+          id: 1,
+          name: "Staff.sanignaciouniversity.edu",
+          link: "https://staff.sanignaciouniversity.edu"
+        },
+        {
+          id:2,
+          name:"Myportal.sanignaciouniversity.edu",
+          link:"https://myportal.sanignaciouniversity.edu"
+        }
+       
+      ],
+      skills: [
+        { id: 12, name: ".NET" },
+        { id: 13, name: "HTML" },
+        { id: 16, name: "Javascript" },
         { id: 15, name: "Tailwindcss" },
         { id: 25, name: "Bootstrap" },
         { id: 17, name: "NodeJS" },
@@ -35,7 +121,64 @@ const WorkExperienceBlock = () => {
       ],
     },
     {
-      id: 10,
+      id: 5,
+      title: "Soft Belt Corporation",
+      image: "/images/work/softbelt.png",
+      job: "Frontend developer",
+      details: (
+        <p>
+         Developed the frontend of tech-education web applications platforms, focused on fast learning  and reading.      
+        </p>
+      ),
+      date: "Feb, 2024 - August, 2024",
+      url: "https://www.softbelt.org",
+      links: [
+        {
+          id: 1,
+          name: "lektorexecutive.softbelt.es",
+          link: "https://lektorexecutive.softbelt.es"
+        },
+        {
+          id:2,
+          name:"Escueladesuperaprendizaje.com",
+          link:"https://escueladesuperaprendizaje.com"
+        },
+        {
+          id:3,
+          name:"Brain-method.softbelt.es",
+          link:"https://brain-method.softbelt.es"
+        },
+        {
+          id:4,
+          name:"cpia.pe",
+          link:"https://cpia.pe"
+        },
+        {
+          id:5,
+          name:"Lektorkids.com",
+          link:"https://www.lektorkids.com"
+        },{
+          id:6,
+          name:"Lektorhs.com",
+          link:"https://www.lektorhs.com"
+        }
+       
+      ],
+      skills: [
+        { id: 12, name: "React" },
+        { id: 12, name: "React Native" },
+        { id: 12, name: "Typescript" },
+        { id: 12, name: "Javascript" },
+        { id: 13, name: "Nextjs" },
+        { id: 15, name: "Tailwindcss" },
+        { id: 25, name: "Bootstrap" },
+        { id: 17, name: "NodeJS" },
+        { id: 111, name: "Google Cloud" }
+
+      ],
+    },
+    {
+      id: 4,
       title: "InSource S.A.C.S",
       image: "/images/work/isperu_logo.jpeg",
       job: "Full Stack developer",
@@ -97,7 +240,7 @@ const WorkExperienceBlock = () => {
       ],
     },
     {
-      id: 1,
+      id: 3,
       title: "Monstruo Creativo",
       image: "/images/work/mc.webp",
       job: "Full Stack project leader",
@@ -133,7 +276,7 @@ const WorkExperienceBlock = () => {
           </Link>{" "}
         </p>
       ),
-      date: "May, 2023 - Sept, 2023",
+      date: "Sept, 2022 - Sept, 2023",
       url: "https://monstruocreativo.com",
       links: [
         {
@@ -207,7 +350,7 @@ const WorkExperienceBlock = () => {
       ],
     },
     {
-      id: 3,
+      id: 1,
       title: "Z & P Soluciones",
       image: "/images/work/zyp.png",
       job: "Frontend React developer",
@@ -373,7 +516,7 @@ const WorkExperienceBlock = () => {
                             : " "
                         }   font-medium text-gray-200`}
                       >
-                        {e.job} | {e.title}
+                        <span className={`${currentItem===e.id ? "text-blue-400" : ""}`}> {e.job}</span> | {e.title}
                       </span>
                     </div>
 
@@ -382,8 +525,8 @@ const WorkExperienceBlock = () => {
                         currentItem === e.id
                           ? " text-gray-300"
                           : currentItem
-                          ? "text-gray-500"
-                          : " text-gray-500"
+                          ? "text-gray-400"
+                          : " text-gray-400"
                       }   text-xs font-normal  `}
                     >
                       {e.details}
@@ -391,7 +534,7 @@ const WorkExperienceBlock = () => {
                     <div className="  py-4 flex justify-start gap-6 flex-wrap">
                       {e?.links.map((e) => (
                         <Link
-                          className=" flex text-sm justify-start gap-2 items-center text-gray-300 hover:text-blue-400"
+                          className=" flex text-sm justify-start gap-2 items-center text-blue-400 hover:text-blue-300 hover:bg-blue-50 hover:bg-opacity-10 rounded-md p-1"
                           key={e.id}
                           href={e.link}
                           target="_blank"

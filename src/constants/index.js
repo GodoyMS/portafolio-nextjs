@@ -497,7 +497,7 @@ const projects = [
     workingOn: false,
     bigProject: true,
     image: "/images/work/pascojobs.png",
-    demoLink: "https://play.google.com/store/apps/details?id=com.godoyliam.pascojobs",
+    demoLink: "https://pascojobsperu.com",
     playstoreLink:
       "https://play.google.com/store/apps/details?id=com.godoyliam.pascojobs",
     gitHubLink: "https://github.com/GodoyMS/pasco-jobs-react-native",
@@ -570,7 +570,7 @@ const projects = [
     workingOn: false,
     bigProject: true,
     image: shirtaiProejct,
-    demoLink: "https://shirt-ai-generator.vercel.app/",
+    demoLink: "https://shirtai.godoyperu.com",
     gitHubLink: "https://github.com/GodoyMS/shirt-ai-generator",
     other: false,
   },

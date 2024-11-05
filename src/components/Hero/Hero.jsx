@@ -66,10 +66,10 @@ const Hero = () => {
             <a
               target="_blank"
               rel="noreferrer noopener"
-              href={"https://www.soft-one.org/"}
+              href={"https://www.tadcon.com.pe"}
               className=" text-blue-400 hover:underline"
             >
-              SOFT-ONE CORPORATION
+              TADCON SAC
             </a>
           </p>
 
