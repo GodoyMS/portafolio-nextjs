@@ -3,40 +3,118 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaLink } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
 
 const WorkExperienceBlock = () => {
   const info = [
     {
+      id: 8,
+      title: "Softtek",
+      image: "/images/work/softtek.webp",
+      job: "Frontend developer SSR",
+      details: (
+        <p>
+          I'm working as a Frontend SSR developer for a large scale health project
+          <br/>
+          Focused on clinics affiliated with{" "}
+          <a
+            href="https://www.pacifico.com.pe"
+            className=" hover:underline text-blue-500"
+            rel="noopener"
+          >
+            Pacifico Seguros
+          </a> health insurance
+          <ul className="list-disc mt-4">
+            <li>
+              Developing frontend with ReactJS with SPA, using Webpack and microfrontends with Module Federation
+            </li>
+            <li>
+              Developing UI library package for "Pacifico Seguros" company in Azure Artifacts
+            </li>
+           
+            <li>
+              Integrating REST API endpoints for backend http communication protocol using Azure API Management subscription
+            </li>
+            <li>
+              Integrating user authentication and authorization using Azure B2C
+            </li>
+            <li>
+              Integrating webhooks for real time notifications using AZURE Web Pub-Sub
+            </li>
+            <li>
+              Developing frontend with Hexagonal clean arquitecture, SOLID design principles and React Design high standard software patterns
+            </li>
+          </ul>
+        </p>
+      ),
+      date: "November, 2024 - Present",
+      url: "https://softtek.com",
+      links: [],
+      skills: [
+        { id: 1, name: "React" },
+        { id: 3, name: "Javasript" },
+        { id: 4, name: "Typescript" },
+        { id: 5, name: "Tailwindcss" },
+        { id: 6, name: "Microfrontends" },
+        { id: 7, name: "Tailwindcss" },
+        { id: 8, name: "Module Federation" },
+        { id: 9, name: "Webpack" },
+        { id: 10, name: "Azure artifacts" },
+        { id: 11, name: "Azure B2C" },
+        { id: 11, name: "Azure APIM" },
+
+      ],
+    },
+    {
       id: 7,
       title: "Provento Group AB",
       image: "/images/work/provento.png",
-      job: "Frontend developer",
+      job: "Full stack developer - Freelance",
       details: (
         <p>
-         I work as a Full Stack developer in an House hold company in Sweeden
-         <ul className="list-disc">
-          <li>Developed a mobile application for work and social integration for Immigrants to Sweden for IOS and Android
-          </li>
-          <li>Integrated support in 3 languages in the application (Spanish, English, Swedish)
-          </li>
-          <li>Developed an administrative panel for companies, where they can manage applications, jobs, events and more.
-          </li>
-          <li>
-            Deployed Entralink mobile app for Android on Playstore
-          </li>
-          <li>
-            Deployed Entralink mobile app for IOS on Apple Store
-          </li>
-          <li>
-            Developed extensive design for an ERP project in Figma
-          </li>
-          <li>
-          Developed a real estate ERP and administrative processes for the client <a  href="https://lokalfastigheter.se" className=" hover:underline text-blue-500" rel="noopener">Lokalfastigheter i Sundbyberg AB</a>, a real
-        estate agency in Sweden - Sundbyberg
+          I work as a Full Stack developer in an House hold company in Sweeden
+          <ul className="list-disc">
+            <li>
+              Developed a mobile application for work and social integration for
+              Immigrants to Sweden for IOS and Android
+            </li>
+            <li>
+              Integrated support in 3 languages in the application (Spanish,
+              English, Swedish)
+            </li>
+            <li>
+              Developed an administrative panel for companies, where they can
+              manage applications, jobs, events and more.
+            </li>
+            <li>Deployed Entralink mobile app for Android on Playstore</li>
+            <li>Deployed Entralink mobile app for IOS on Apple Store</li>
+            <li>
+              Developed household brand platform, focused on evaluation for
+              house selling
+              <a
+                href="https://www.varderahem.se/"
+                className=" hover:underline text-blue-500"
+                rel="noopener"
+              >
+                {" "}
+                Varderahem
+              </a>
+            </li>
 
-          </li>
-         </ul>
-
+            <li>Developed extensive design for an ERP project in Figma</li>
+            <li>
+              Developed a real estate ERP and administrative processes for the
+              client{" "}
+              <a
+                href="https://lokalfastigheter.se"
+                className=" hover:underline text-blue-500"
+                rel="noopener"
+              >
+                Lokalfastigheter i Sundbyberg AB
+              </a>
+              , a real estate agency in Sweden - Sundbyberg
+            </li>
+          </ul>
         </p>
       ),
       date: "April, 2024 - Present",
@@ -45,18 +123,23 @@ const WorkExperienceBlock = () => {
         {
           id: 1,
           name: "Entralink web",
-          link: "https://entralink.se"
+          link: "https://entralink.se",
         },
         {
-          id:2,
-          name:"Entralink Android",
-          link:"https://play.google.com/store/apps/details?id=com.provento.asylum"
-        },{
-          id:3,
-          name:"Entralink IOS",
-          link:"https://apps.apple.com/us/app/entralink/id6502832209?platform=iphone"
-        }
-       
+          id: 2,
+          name: "Entralink Android",
+          link: "https://play.google.com/store/apps/details?id=com.provento.asylum",
+        },
+        {
+          id: 3,
+          name: "Entralink IOS",
+          link: "https://apps.apple.com/us/app/entralink/id6502832209?platform=iphone",
+        },
+        {
+          id: 4,
+          name: "Varderahem - Home evaluation broker",
+          link: "https://www.varderahem.se/",
+        },
       ],
       skills: [
         { id: 1, name: "React" },
@@ -70,9 +153,6 @@ const WorkExperienceBlock = () => {
         { id: 9, name: "NodeJS" },
         { id: 10, name: "Google Cloud" },
         { id: 11, name: "Firebase" },
-
-
-
       ],
     },
     {
@@ -82,31 +162,39 @@ const WorkExperienceBlock = () => {
       job: "Frontend developer",
       details: (
         <p>
-         I work as a Frontend developer for an ERP project for San Ignacio University (Miami, USA)
-         <ul className="list-disc">
-          <li>I developed the visual interfaces of all the pages of the project with Bootstrap, based on designs planned in Figma</li>
-          <li>I developed the generation of complex PDF reports such as transcripts, Application Forms and Course Reports using
-          HTML2PDF and jsPDF In an MVC architecture</li>
-          <li>I integrated APIREST endpoints with AJAX in JSON format Creation of tables and complex reports using DataTable
-          and dynamic calendars using Fullcalendar.io</li>
-         </ul>
-
+          I work as a Frontend developer for an ERP project for San Ignacio
+          University (Miami, USA)
+          <ul className="list-disc">
+            <li>
+              I developed the visual interfaces of all the pages of the project
+              with Bootstrap, based on designs planned in Figma
+            </li>
+            <li>
+              I developed the generation of complex PDF reports such as
+              transcripts, Application Forms and Course Reports using HTML2PDF
+              and jsPDF In an MVC architecture
+            </li>
+            <li>
+              I integrated APIREST endpoints with AJAX in JSON format Creation
+              of tables and complex reports using DataTable and dynamic
+              calendars using Fullcalendar.io
+            </li>
+          </ul>
         </p>
       ),
-      date: "August, 2024 - Present",
+      date: "August, 2024 - Nov, 2024",
       url: "https://www.tadcon.com.pe",
       links: [
         {
           id: 1,
           name: "Staff.sanignaciouniversity.edu",
-          link: "https://staff.sanignaciouniversity.edu"
+          link: "https://staff.sanignaciouniversity.edu",
         },
         {
-          id:2,
-          name:"Myportal.sanignaciouniversity.edu",
-          link:"https://myportal.sanignaciouniversity.edu"
-        }
-       
+          id: 2,
+          name: "Myportal.sanignaciouniversity.edu",
+          link: "https://myportal.sanignaciouniversity.edu",
+        },
       ],
       skills: [
         { id: 12, name: ".NET" },
@@ -116,8 +204,6 @@ const WorkExperienceBlock = () => {
         { id: 25, name: "Bootstrap" },
         { id: 17, name: "NodeJS" },
         { id: 111, name: "Google Cloud" },
-
-
       ],
     },
     {
@@ -127,7 +213,8 @@ const WorkExperienceBlock = () => {
       job: "Frontend developer",
       details: (
         <p>
-         Developed the frontend of tech-education web applications platforms, focused on fast learning  and reading.      
+          Developed the frontend of tech-education web applications platforms,
+          focused on fast learning and reading.
         </p>
       ),
       date: "Feb, 2024 - August, 2024",
@@ -136,33 +223,33 @@ const WorkExperienceBlock = () => {
         {
           id: 1,
           name: "lektorexecutive.softbelt.es",
-          link: "https://lektorexecutive.softbelt.es"
+          link: "https://lektorexecutive.softbelt.es",
         },
         {
-          id:2,
-          name:"Escueladesuperaprendizaje.com",
-          link:"https://escueladesuperaprendizaje.com"
+          id: 2,
+          name: "Escueladesuperaprendizaje.com",
+          link: "https://escueladesuperaprendizaje.com",
         },
         {
-          id:3,
-          name:"Brain-method.softbelt.es",
-          link:"https://brain-method.softbelt.es"
+          id: 3,
+          name: "Brain-method.softbelt.es",
+          link: "https://brain-method.softbelt.es",
         },
         {
-          id:4,
-          name:"cpia.pe",
-          link:"https://cpia.pe"
+          id: 4,
+          name: "cpia.pe",
+          link: "https://cpia.pe",
         },
         {
-          id:5,
-          name:"Lektorkids.com",
-          link:"https://www.lektorkids.com"
-        },{
-          id:6,
-          name:"Lektorhs.com",
-          link:"https://www.lektorhs.com"
-        }
-       
+          id: 5,
+          name: "Lektorkids.com",
+          link: "https://www.lektorkids.com",
+        },
+        {
+          id: 6,
+          name: "Lektorhs.com",
+          link: "https://www.lektorhs.com",
+        },
       ],
       skills: [
         { id: 12, name: "React" },
@@ -173,8 +260,7 @@ const WorkExperienceBlock = () => {
         { id: 15, name: "Tailwindcss" },
         { id: 25, name: "Bootstrap" },
         { id: 17, name: "NodeJS" },
-        { id: 111, name: "Google Cloud" }
-
+        { id: 111, name: "Google Cloud" },
       ],
     },
     {
@@ -204,10 +290,9 @@ const WorkExperienceBlock = () => {
             href={"https://app.pupicat.com/"}
           >
             PupiCat
-          </Link>{" "}, 
-          as well as an admin dashboard for their owners wich helps them promote
-          and track their sales with partners and clients
-      
+          </Link>{" "}
+          , as well as an admin dashboard for their owners wich helps them
+          promote and track their sales with partners and clients
         </p>
       ),
       date: "Setp, 2023 - Feb, 2024",
@@ -222,7 +307,7 @@ const WorkExperienceBlock = () => {
           id: 2,
           name: "Pupicat.com",
           link: "https://app.pupicat.com/",
-        }
+        },
       ],
       skills: [
         { id: 12, name: "React" },
@@ -235,8 +320,6 @@ const WorkExperienceBlock = () => {
         { id: 110, name: "Strapi" },
         { id: 111, name: "Google Cloud" },
         { id: 112, name: "Firebase" },
-
-
       ],
     },
     {
@@ -404,6 +487,8 @@ const WorkExperienceBlock = () => {
 
   const [currentItem, setCurrentItem] = useState("");
 
+  console.log(currentItem);
+
   return (
     <>
       <div className=" p-5 mt-4  max-w-4xl ml-auto rounded-lg relative  ">
@@ -516,7 +601,15 @@ const WorkExperienceBlock = () => {
                             : " "
                         }   font-medium text-gray-200`}
                       >
-                        <span className={`${currentItem===e.id ? "text-blue-400" : ""}`}> {e.job}</span> | {e.title}
+                        <span
+                          className={`${
+                            currentItem === e.id ? "text-blue-400" : ""
+                          }`}
+                        >
+                          {" "}
+                          {e.job}
+                        </span>{" "}
+                        | {e.title}
                       </span>
                     </div>
 

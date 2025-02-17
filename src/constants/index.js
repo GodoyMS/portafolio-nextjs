@@ -394,7 +394,7 @@ const projects = [
   // },
 
   {
-    key: 12,
+    key: 1,
     name: "Novify CRM",
     description:
       "Customer relationship management system designed specifically for clinics and healthcare organizations. It allows clinics to manage their patient information, appointments, and billing in one centralized location. Unfortunately, I am unable to provide a link to my GitHub repository as the project is the result of extensive effort and is highly valuable ",
@@ -451,7 +451,7 @@ const projects = [
     other: false,
   },
   {
-    key: 11,
+    key: 2,
     name: "Pasco Jobs Android",
     description:
       "A Mobile App Platform for Seamless Job Search and Company Branding. Seek new jobs, apply easily, discover new companies around your city and promote your professional profile to get hired. ",
@@ -506,7 +506,7 @@ const projects = [
     other: false,
   },
   {
-    key: 1,
+    key: 3,
     name: "NFT Landing",
     description:
       "Web 3D WEBGL based project that allows users to customize a 3D shirt model, powered by AI and Three.js",
@@ -539,7 +539,7 @@ const projects = [
     other: false,
   },
   {
-    key: 1,
+    key: 4,
     name: "3D shirt AI generator model",
     description:
       "Web 3D WEBGL based project that allows users to customize a 3D shirt model, powered by AI and Three.js",
