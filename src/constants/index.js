@@ -440,8 +440,8 @@ const projects = [
     workingOn: false,
     bigProject: true,
     image: "/images/work/novifyframe.png",
-    demoLink: "https://app.novifycrm.com",
-    // gitHubLink: "https://github.com/GodoyMS/clinic_crm_backend_nodejs",
+    demoLink: "https://novifycrm.godoyperu.com",
+    //gitHubLink: "https://github.com/GodoyMS/clinic_crm_backend_nodejs",
     gitHubLinkBackend: "https://github.com/GodoyMS/clinic_crm_backend_nodejs",
     demoLinkSecondVersion:
       "alpha-clinicas.000webhostapp.com/clinicas/index.php",
