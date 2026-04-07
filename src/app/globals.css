@@ -81,6 +81,23 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Portfolio surface tokens (public site) — light */
+  --bc-page: oklch(0.985 0.008 250);
+  --bc-card: oklch(1 0 0);
+  --bc-muted: oklch(0.48 0.03 250);
+  --bc-heading: oklch(0.22 0.04 260);
+  --bc-accent: oklch(0.52 0.12 195);
+  --bc-border: oklch(0.9 0.015 250);
+  --bc-border-subtle: color-mix(in oklch, var(--bc-heading) 10%, transparent);
+  --bc-radial-glow: color-mix(in oklch, var(--bc-accent) 14%, transparent);
+  --bc-header-bg: color-mix(in oklch, var(--bc-page) 82%, transparent);
+  --bc-pill-bg: color-mix(in oklch, var(--bc-page) 70%, var(--bc-card));
+  --bc-accent-border: color-mix(in oklch, var(--bc-accent) 65%, transparent);
+  --bc-accent-soft: color-mix(in oklch, var(--bc-accent) 12%, transparent);
+  --bc-accent-focus: color-mix(in oklch, var(--bc-accent) 38%, transparent);
+  --bc-card-hover-ring: color-mix(in oklch, var(--bc-accent) 8%, transparent);
+  --bc-portrait-shadow: 0 24px 80px -32px color-mix(in oklch, var(--bc-heading) 22%, transparent);
 }
 
 .dark {
@@ -115,6 +132,23 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Portfolio surface tokens — dark (Brittany Chiang–style) */
+  --bc-page: #0a192f;
+  --bc-card: #112240;
+  --bc-muted: #8892b0;
+  --bc-heading: #ccd6f6;
+  --bc-accent: #64ffda;
+  --bc-border: #233554;
+  --bc-border-subtle: color-mix(in srgb, white 6%, transparent);
+  --bc-radial-glow: color-mix(in srgb, var(--bc-accent) 10%, transparent);
+  --bc-header-bg: color-mix(in srgb, var(--bc-page) 90%, transparent);
+  --bc-pill-bg: color-mix(in srgb, var(--bc-page) 80%, transparent);
+  --bc-accent-border: color-mix(in srgb, var(--bc-accent) 70%, transparent);
+  --bc-accent-soft: color-mix(in srgb, var(--bc-accent) 10%, transparent);
+  --bc-accent-focus: color-mix(in srgb, var(--bc-accent) 40%, transparent);
+  --bc-card-hover-ring: color-mix(in srgb, var(--bc-accent) 6%, transparent);
+  --bc-portrait-shadow: 0 24px 80px -32px rgba(2, 12, 27, 0.9);
 }
 
 @layer base {

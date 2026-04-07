@@ -1,0 +1,136 @@
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // Avoid Windows EPERM renaming query_engine inside pnpm’s deep .pnpm path (dev server locks the DLL).
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Dashboard login accounts (bcrypt password hash). Create via `pnpm prisma db seed` or Admin UI later.
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum ProjectType {
+  MAIN
+  NOTEWORTHY
+}
+
+model WorkExperience {
+  id            String   @id @default(cuid())
+  role          String
+  company       String
+  companyLink   String?
+  companyImage  String?
+  startDate     DateTime
+  endDate       DateTime?
+  isPresent     Boolean  @default(false)
+  description   Json
+  createdAt     DateTime @default(now())
+
+  links  WorkExperienceLink[]
+  badges WorkExperienceBadge[]
+
+  @@index([startDate(sort: Desc)])
+  @@index([isPresent])
+}
+
+model WorkExperienceLink {
+  id                 String           @id @default(cuid())
+  workExperienceId   String
+  title              String
+  href               String
+  workExperience     WorkExperience   @relation(fields: [workExperienceId], references: [id], onDelete: Cascade)
+
+  @@index([workExperienceId])
+}
+
+model WorkExperienceBadge {
+  id                 String           @id @default(cuid())
+  workExperienceId   String
+  label              String
+  workExperience     WorkExperience   @relation(fields: [workExperienceId], references: [id], onDelete: Cascade)
+
+  @@index([workExperienceId])
+}
+
+model Education {
+  id               String   @id @default(cuid())
+  institutionName  String
+  institutionLogo  String?
+  degreeTitle      String
+  fieldOfStudy     String
+  startDate        DateTime
+  endDate          DateTime?
+  isPresent        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  links EducationLink[]
+
+  @@index([startDate(sort: Desc)])
+}
+
+model EducationLink {
+  id           String    @id @default(cuid())
+  educationId  String
+  title        String
+  href         String
+  education    Education @relation(fields: [educationId], references: [id], onDelete: Cascade)
+
+  @@index([educationId])
+}
+
+model Project {
+  id            String      @id @default(cuid())
+  title         String
+  description   String
+  imagePreview  String?
+  videoDemo     String?
+  year          Int
+  type          ProjectType @default(MAIN)
+  isFeatured    Boolean     @default(false)
+  githubUrl     String?
+  productionUrl String?
+  playstoreUrl  String?
+  createdAt     DateTime    @default(now())
+
+  skills ProjectSkill[]
+  links  ProjectLink[]
+
+  @@index([type, isFeatured])
+  @@index([year(sort: Desc)])
+}
+
+model ProjectSkill {
+  id        String  @id @default(cuid())
+  projectId String
+  name      String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model ProjectLink {
+  id        String  @id @default(cuid())
+  projectId String
+  title     String
+  href      String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+/// Single CV row: application replaces file on upload (id = 1).
+model CV {
+  id        Int      @id @default(1)
+  fileUrl   String
+  updatedAt DateTime @updatedAt
+}
