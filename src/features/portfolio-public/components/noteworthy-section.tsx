@@ -21,11 +21,11 @@ function NoteCard({ project: p }: { project: Row }) {
     <article
       className={cn(
         bcClass.cardFlat,
-        "flex h-full flex-col p-5 transition-[border-color,transform] duration-300 hover:border-[color-mix(in_oklch,var(--bc-accent)_20%,var(--bc-border))]",
+        "flex h-full flex-col p-5 transition-[border-color,transform] duration-300 hover:border-primary/20",
       )}
     >
       <h3 className={cn(bcClass.heading, "font-semibold tracking-tight")}>{p.title}</h3>
-      <p className="mt-2 line-clamp-3 text-sm text-[var(--bc-muted)]">{p.description}</p>
+      <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{p.description}</p>
       {p.skills.length > 0 ? (
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {p.skills.slice(0, 5).map((s) => (

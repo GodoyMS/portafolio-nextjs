@@ -169,11 +169,11 @@ export function BcLogoBox({
   alt: string;
 }) {
   return (
-    <div className="relative size-14 shrink-0 overflow-hidden rounded-md border border-[var(--bc-border)] bg-[var(--bc-page)]">
+    <div className="relative size-14 shrink-0 overflow-hidden rounded-md border border-border bg-background">
       {src ? (
         <Image src={src} alt={alt} fill className="object-cover" sizes="56px" />
       ) : (
-        <span className="flex size-full items-center justify-center font-mono text-xs font-semibold text-[var(--bc-muted)]">
+        <span className="flex size-full items-center justify-center font-mono text-xs font-semibold text-muted-foreground">
           {fallback}
         </span>
       )}

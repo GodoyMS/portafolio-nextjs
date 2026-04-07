@@ -1,19 +1,12 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AppProviders } from "@/components/providers";
-import { siteConfig } from "@/lib/site-config";
+import { buildRootMetadata } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.personName,
-    template: `%s · ${siteConfig.personName}`,
-  },
-  description: siteConfig.heroIntro,
-};
+export const metadata = buildRootMetadata();
 
 export default function RootLayout({
   children,

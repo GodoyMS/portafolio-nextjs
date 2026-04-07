@@ -38,7 +38,7 @@ export function ProjectMediaCard({
   return (
     <motion.div
       className={cn(
-        "relative aspect-video overflow-hidden rounded-t-lg border-b border-[var(--bc-border)] bg-[color-mix(in_oklch,var(--bc-card)_50%,transparent)]",
+        "relative aspect-video overflow-hidden rounded-t-lg border-b border-border bg-card/50",
         className,
       )}
       onMouseEnter={() => setHover(true)}
@@ -51,7 +51,7 @@ export function ProjectMediaCard({
       ) : image ? (
         <Image src={image} alt={title} fill className="object-cover" sizes="(min-width: 1024px) 480px, 100vw" />
       ) : (
-        <div className="flex size-full items-center justify-center bg-[var(--bc-page)] text-xs font-medium text-[var(--bc-muted)]">
+        <div className="flex size-full items-center justify-center bg-background text-xs font-medium text-muted-foreground">
           {title}
         </div>
       )}

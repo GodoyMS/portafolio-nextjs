@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export function ResumeButton({
   href,
   className,
-  variant = "outline",
+  variant = "portfolio",
   size = "default",
 }: {
   href: string | null;
@@ -17,7 +17,7 @@ export function ResumeButton({
 }) {
   if (!href) {
     return (
-      <Button type="button" variant="outline" size={size} disabled className={cn(className)}>
+      <Button type="button" variant="portfolio" size={size} disabled className={cn(className)}>
         Resume
       </Button>
     );

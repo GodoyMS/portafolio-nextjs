@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { securityHeadersList } from "./src/lib/security-headers";
 
 function r2Hostname(): string | undefined {
   const raw = process.env.R2_PUBLIC_BASE_URL;
@@ -12,18 +13,8 @@ function r2Hostname(): string | undefined {
 
 const host = r2Hostname();
 
-const securityHeaders = [
-  { key: "X-DNS-Prefetch-Control", value: "on" },
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  {
-    key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=()",
-  },
-];
-
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   images: {
     remotePatterns: host
       ? [
@@ -39,7 +30,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
-        headers: securityHeaders,
+        headers: securityHeadersList(),
       },
     ];
   },

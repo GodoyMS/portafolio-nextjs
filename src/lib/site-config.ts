@@ -12,6 +12,11 @@ export const siteConfig = {
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean),
+  /** Current focus (About section second paragraph), e.g. company name + careers URL */
+  aboutEmployerName:
+    process.env.NEXT_PUBLIC_ABOUT_EMPLOYER_NAME ?? "Openloop Health",
+  aboutEmployerUrl:
+    process.env.NEXT_PUBLIC_ABOUT_EMPLOYER_URL ?? "https://openloophealth.com",
   socialGithub: process.env.NEXT_PUBLIC_SOCIAL_GITHUB,
   socialLinkedin: process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN,
   socialEmail: process.env.NEXT_PUBLIC_SOCIAL_EMAIL,

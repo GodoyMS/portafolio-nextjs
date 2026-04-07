@@ -38,7 +38,7 @@ function EduCard({ edu }: { edu: Row }) {
         </div>
         <p className={cn(bcClass.heading, "mt-1")}>
           {edu.degreeTitle}
-          <span className="text-[var(--bc-muted)]"> · {edu.fieldOfStudy}</span>
+          <span className="text-muted-foreground"> · {edu.fieldOfStudy}</span>
         </p>
         <p className={cn(bcClass.date, "mt-2")}>
           {format(edu.startDate, "MMM yyyy")}
@@ -62,7 +62,7 @@ export function EducationSection({ items }: { items: Row[] }) {
       />
       {items.length === 0 ? (
         <BcReveal>
-          <p className="text-sm text-[var(--bc-muted)]">Education entries coming soon.</p>
+          <p className="text-sm text-muted-foreground">Education entries coming soon.</p>
         </BcReveal>
       ) : reduce ? (
         <div className="space-y-8">

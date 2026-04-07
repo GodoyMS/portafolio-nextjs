@@ -24,9 +24,9 @@ function FeaturedCard({ project: p }: { project: Row }) {
       <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2">
           <h3 className={cn(bcClass.heading, "text-lg font-semibold tracking-tight")}>{p.title}</h3>
-          <span className="font-mono text-xs text-[var(--bc-muted)]">{p.year}</span>
+          <span className="font-mono text-xs text-muted-foreground">{p.year}</span>
         </div>
-        <p className="line-clamp-3 text-sm leading-relaxed text-[var(--bc-muted)]">{p.description}</p>
+        <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
         {p.skills.length > 0 ? (
           <ul className="flex flex-wrap gap-2">
             {p.skills.map((s) => (
@@ -63,7 +63,7 @@ export function MainProjectsSection({ featured }: { featured: Row[] }) {
       />
       {featured.length === 0 ? (
         <BcReveal>
-          <p className="text-sm text-[var(--bc-muted)]">No featured main projects yet.</p>
+          <p className="text-sm text-muted-foreground">No featured main projects yet.</p>
         </BcReveal>
       ) : reduce ? (
         <div className="grid gap-8 lg:grid-cols-2">

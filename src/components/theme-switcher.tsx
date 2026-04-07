@@ -29,7 +29,7 @@ export function ThemeSwitcher() {
   if (!mounted) {
     return (
       <div
-        className="h-8 min-w-[7.5rem] rounded-lg border border-[var(--bc-border)] bg-[color-mix(in_oklch,var(--bc-page)_85%,transparent)]"
+        className="h-8 min-w-[7.5rem] rounded-lg border border-border bg-background/85"
         aria-hidden
       />
     );
@@ -40,15 +40,14 @@ export function ThemeSwitcher() {
       <SelectTrigger
         size="sm"
         aria-label="Color theme"
-        className="min-w-[7.5rem] border-[var(--bc-border)] bg-[color-mix(in_oklch,var(--bc-page)_85%,transparent)] text-[var(--bc-muted)] focus-visible:border-[var(--bc-accent-border)] focus-visible:ring-[var(--bc-accent-focus)]"
+        className="min-w-[7.5rem] border-border bg-background/85 text-muted-foreground focus-visible:border-primary/60 focus-visible:ring-primary/30"
       >
-        <ActiveIcon className="size-3.5 shrink-0 text-[var(--bc-accent)]" aria-hidden />
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent align="end" position="popper" className="min-w-[var(--radix-select-trigger-width)]">
         {options.map(({ value: v, label, Icon }) => (
           <SelectItem key={v} value={v} className="gap-2">
-            <Icon className="size-3.5 text-[var(--bc-accent)]" aria-hidden />
+            <Icon className="size-3.5 text-primary" aria-hidden />
             {label}
           </SelectItem>
         ))}

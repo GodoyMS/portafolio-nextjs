@@ -33,7 +33,7 @@ export function RichTextView({
   return (
     <div
       className={cn(
-        "space-y-2 text-sm leading-relaxed [&_p+p]:mt-2 [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:pl-5",
+        " text-xs leading-relaxed [&_p+p]:mt-2 [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:pl-5",
         toneClass[tone],
         className
       )}

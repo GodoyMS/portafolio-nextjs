@@ -1,34 +1,13 @@
 "use client";
 
-import type { ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { format } from "date-fns";
 import { motion, useReducedMotion } from "framer-motion";
-import type {
-  WorkExperience,
-  WorkExperienceBadge,
-  WorkExperienceLink,
-} from "@prisma/client";
-import { ArrowDownRight, Mail } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { bcClass } from "../bc-theme";
-import { BcExternalLink, BcSkillPill } from "./bc-ui";
-import { IconGithub, IconLinkedin } from "./bc-icons";
 import { ResumeButton } from "./resume-button";
-
-type WorkRow = WorkExperience & {
-  links: WorkExperienceLink[];
-  badges: WorkExperienceBadge[];
-};
-
-const nav = [
-  { n: "01", label: "About", href: "#about" },
-  { n: "02", label: "Experience", href: "#work" },
-  { n: "03", label: "Education", href: "#education" },
-  { n: "04", label: "Projects", href: "#projects" },
-] as const;
 
 function AnimatedName({ text }: { text: string }) {
   const reduce = useReducedMotion();
@@ -56,106 +35,35 @@ function AnimatedName({ text }: { text: string }) {
   );
 }
 
-function AnimatedLine({
-  text,
-  className,
-  delay = 0,
-}: {
-  text: string;
-  className?: string;
-  delay?: number;
-}) {
+export function HeroProfileSection({ cvUrl }: { cvUrl: string | null }) {
   const reduce = useReducedMotion();
-  if (reduce) {
-    return <p className={className}>{text}</p>;
-  }
-  const words = text.split(" ");
-  return (
-    <p className={className}>
-      {words.map((word, i) => (
-        <motion.span
-          key={`${word}-${i}`}
-          className="mr-[0.3em] inline-block"
-          initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{
-            duration: 0.5,
-            delay: delay + i * 0.035,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </p>
-  );
-}
 
-function BcOutlineButton({
-  href,
-  children,
-  className,
-  external,
-}: {
-  href: string;
-  children: ReactNode;
-  className?: string;
-  external?: boolean;
-}) {
-  const Comp = external ? "a" : Link;
-  const extra = external
-    ? { target: "_blank", rel: "noopener noreferrer" as const }
-    : {};
-
-  return (
-    <Comp
-      href={href}
-      className={cn(bcClass.outlineButton, className)}
-      {...extra}
-    >
-      {children}
-    </Comp>
-  );
-}
-
-export function HeroProfileSection({
-  cvUrl,
-  workExperience,
-}: {
-  cvUrl: string | null;
-  workExperience: WorkRow[];
-}) {
-  const reduce = useReducedMotion();
+  const heroRadial =
+    "radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in oklch, var(--primary) 14%, transparent), transparent)";
 
   return (
     <>
-      <section
-        className="relative overflow-hidden h-screen border-b border-[var(--bc-border-subtle)]"
-        style={{ backgroundColor: "var(--bc-page)", color: "var(--bc-muted)" }}
-      >
+      <section className="relative h-screen overflow-hidden border-b border-border/60 bg-background text-muted-foreground">
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.35]"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse 80% 50% at 50% -20%, var(--bc-radial-glow), transparent)",
-          }}
+          style={{ backgroundImage: heroRadial }}
         />
-        <div className="relative h-full flex flex-col justify-center mx-auto max-w-[1000px] px-6 py-16 sm:py-20 lg:px-12 lg:py-28">
+        <div className="relative mx-auto flex h-full max-w-[1000px] flex-col justify-center px-6 py-16 sm:py-20 lg:px-12 lg:py-28">
           <div id="about" className="scroll-mt-28">
             <motion.p
-              className="font-mono text-sm tracking-widest text-[var(--bc-accent)]"
+              className="font-mono text-sm tracking-widest text-primary"
               initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
             >
               Hi, my name is
             </motion.p>
-            <h1 className="mt-2 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl  lg:text-[4.75rem] lg:leading-[1.15]">
+            <h1 className="mt-2 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-[4.75rem] lg:leading-[1.15]">
               <AnimatedName text={siteConfig.personName} />
-              <span className="text-[var(--bc-muted)]">.</span>
+              <span className="text-muted-foreground">.</span>
             </h1>
             <motion.h2
-              className=" text-3xl font-bold  tracking-tight text-[var(--bc-muted)] sm:text-4xl lg:text-[3.8rem]"
+              className="text-3xl font-bold tracking-tight text-muted-foreground sm:text-4xl lg:text-[3.8rem]"
               initial={reduce ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -167,7 +75,7 @@ export function HeroProfileSection({
               {siteConfig.heroTagline}
             </motion.h2>
             <motion.p
-             className="max-w-xl mt-10"
+              className="mt-10 max-w-xl"
               initial={reduce ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -176,11 +84,19 @@ export function HeroProfileSection({
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              I’m a software engineer specializing in building (and occasionally
-              designing) exceptional digital experiences. Currently, I’m focused
-              on building accessible, human-centered healthcare products at <Link className="hover:underline text-[var(--bc-accent)]" href="https://openloophealth.com" target="_blank" rel="noopener noreferrer">Openloop Health</Link>.
+              I’m a software engineer specializing in building (and occasionally designing)
+              exceptional digital experiences. Currently, I’m focused on building accessible,
+              human-centered healthcare products at{" "}
+              <Link
+                className="text-primary transition-colors hover:underline"
+                href="https://openloophealth.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Openloop Health
+              </Link>
+              .
             </motion.p>
-          
 
             <motion.div
               className="mt-10 flex flex-wrap items-center gap-3"
@@ -192,27 +108,25 @@ export function HeroProfileSection({
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <BcOutlineButton href="#work">
-                View experience
-                <ArrowDownRight className="size-3.5" aria-hidden />
-              </BcOutlineButton>
-              
-              <ResumeButton
-                href={cvUrl}
-                variant="outline"
-                size="default"
-                className={cn(
-                  bcClass.resumeOutline,
-                  "font-mono text-xs tracking-wide",
-                )}
-              />
+              <Button variant="portfolio" className="min-h-10 px-5 py-2.5" asChild>
+                <Link href="#work">
+                  View experience
+                  <ArrowDownRight className="size-3.5" aria-hidden />
+                </Link>
+              </Button>
+
+              <ResumeButton href={cvUrl} size="default" className="min-h-10 px-5 py-2.5" />
+
               {siteConfig.socialEmail ? (
-                <BcOutlineButton
-                  href={`mailto:${siteConfig.socialEmail}`}
-                  external
-                >
-                  Say hello
-                </BcOutlineButton>
+                <Button variant="portfolio" className="min-h-10 px-5 py-2.5" asChild>
+                  <a
+                    href={`mailto:${siteConfig.socialEmail}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Say hello
+                  </a>
+                </Button>
               ) : null}
             </motion.div>
           </div>
