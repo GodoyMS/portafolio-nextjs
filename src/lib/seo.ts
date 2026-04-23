@@ -80,6 +80,13 @@ export function buildRootMetadata(): Metadata {
     },
     description,
     keywords: buildSeoKeywords(),
+    ...(origin
+      ? {
+          alternates: {
+            canonical: `${origin}/`,
+          },
+        }
+      : {}),
     applicationName: `${siteConfig.personName} — Portfolio`,
     authors: origin ? [{ name: siteConfig.personName, url: `${origin}/` }] : [{ name: siteConfig.personName }],
     creator: siteConfig.personName,

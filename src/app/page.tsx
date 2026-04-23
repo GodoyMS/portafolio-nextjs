@@ -6,6 +6,7 @@ import { WorkSection } from "@/features/portfolio-public/components/work-section
 import { EducationSection } from "@/features/portfolio-public/components/education-section";
 import { MainProjectsSection } from "@/features/portfolio-public/components/main-projects-section";
 import { NoteworthySection } from "@/features/portfolio-public/components/noteworthy-section";
+import { FigmaDesignsSection } from "@/features/portfolio-public/components/figma-designs-section";
 import { getCvUrl, getHomeData } from "@/features/portfolio-public/queries";
 import { bcClass } from "@/features/portfolio-public/bc-theme";
 import { cn } from "@/lib/utils";
@@ -49,6 +50,7 @@ export default async function HomePage() {
         <WorkSection items={data.workExperience} />
         <EducationSection items={data.education} />
         <MainProjectsSection featured={data.featuredMain} />
+        <FigmaDesignsSection />
         <NoteworthySection items={data.noteworthy} />
       </main>
       <SiteFooter />
