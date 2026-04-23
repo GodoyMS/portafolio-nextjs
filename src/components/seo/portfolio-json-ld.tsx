@@ -59,6 +59,7 @@ export function PortfolioJsonLd() {
   return (
     <script
       type="application/ld+json"
+      async
       // eslint-disable-next-line react/no-danger -- JSON-LD requires raw script
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />

@@ -8,11 +8,34 @@ function isAdminToken(token: unknown): boolean {
   return (token as { role?: string }).role === "admin";
 }
 
+function isProtectedPath(pathname: string): boolean {
+  return pathname === "/admin" || pathname.startsWith("/admin/") || pathname === "/projects";
+}
+
+function withSecurityHeaders(res: NextResponse, pathname: string): NextResponse {
+  if (pathname === "/admin/login" || pathname.startsWith("/admin")) {
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return res;
+}
+
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
   const secret = process.env.AUTH_SECRET;
+
+  if (process.env.NODE_ENV === "production" && !secret && isProtectedPath(pathname)) {
+    return new NextResponse(
+      "Authentication is not configured (AUTH_SECRET is required in production).",
+      {
+        status: 503,
+        headers: { "Content-Type": "text/plain; charset=utf-8" },
+      },
+    );
+  }
+
   if (!secret) {
     console.error("AUTH_SECRET is missing; cannot validate sessions in middleware.");
-    return NextResponse.next();
+    return withSecurityHeaders(NextResponse.next(), pathname);
   }
 
   const token = await getToken({
@@ -21,37 +44,39 @@ export async function middleware(request: NextRequest) {
     secureCookie: process.env.NODE_ENV === "production",
   });
 
-  const pathname = request.nextUrl.pathname;
   const authed = Boolean(token) && isAdminToken(token);
 
-  if (pathname === "/projects" || pathname.startsWith("/projects/")) {
+  if (pathname === "/projects") {
     if (!authed) {
       const login = new URL("/admin/login", request.url);
       login.searchParams.set("callbackUrl", pathname);
-      return NextResponse.redirect(login);
+      return withSecurityHeaders(NextResponse.redirect(login), pathname);
     }
-    return NextResponse.next();
+    return withSecurityHeaders(NextResponse.next(), pathname);
   }
 
   const isLoginPage = pathname === "/admin/login";
 
   if (isLoginPage) {
     if (authed) {
-      return NextResponse.redirect(new URL("/admin/work-experience", request.url));
+      return withSecurityHeaders(
+        NextResponse.redirect(new URL("/admin/work-experience", request.url)),
+        pathname,
+      );
     }
-    return NextResponse.next();
+    return withSecurityHeaders(NextResponse.next(), pathname);
   }
 
   if (pathname.startsWith("/admin")) {
     if (!authed) {
       const login = new URL("/admin/login", request.url);
       login.searchParams.set("callbackUrl", pathname);
-      return NextResponse.redirect(login);
+      return withSecurityHeaders(NextResponse.redirect(login), pathname);
     }
-    return NextResponse.next();
+    return withSecurityHeaders(NextResponse.next(), pathname);
   }
 
-  return NextResponse.next();
+  return withSecurityHeaders(NextResponse.next(), pathname);
 }
 
 /**
@@ -59,5 +84,5 @@ export async function middleware(request: NextRequest) {
  * Middleware uses `getToken` only (no `@/auth` import) so Prisma stays off the Edge bundle.
  */
 export const config = {
-  matcher: ["/admin", "/admin/:path*", "/projects", "/projects/:path*"],
+  matcher: ["/admin", "/admin/:path*", "/projects"],
 };

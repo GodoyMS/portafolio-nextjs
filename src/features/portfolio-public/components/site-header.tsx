@@ -22,6 +22,7 @@ const navItems = [
   { href: "#work", label: "Experience" },
   { href: "#education", label: "Education" },
   { href: "#projects", label: "Projects" },
+  { href: "#designs", label: "Designs" },
 ] as const;
 
 function MobileNav() {

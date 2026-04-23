@@ -80,7 +80,7 @@ function InlineLink({ href, children }: { href: string; children: ReactNode }) {
 }
 
 function aboutParagraphs(): { id: string; className?: string; content: ReactNode }[] {
-  const { personName, heroIntro, aboutEmployerName, aboutEmployerUrl } = siteConfig;
+  const { personName, aboutEmployerName, aboutEmployerUrl } = siteConfig;
 
   return [
     {
@@ -88,7 +88,7 @@ function aboutParagraphs(): { id: string; className?: string; content: ReactNode
       content: (
         <>
           Hello! My name is <span className="font-medium text-foreground">{personName}</span> and I enjoy
-          creating things that live on the internet. {heroIntro}
+          creating things that live on the internet. 
         </>
       ),
     },
