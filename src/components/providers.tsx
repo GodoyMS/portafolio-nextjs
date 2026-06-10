@@ -10,7 +10,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
-        enableSystem
+        themes={["dark", "light"]}
         storageKey="portfolio-theme"
         disableTransitionOnChange
       >

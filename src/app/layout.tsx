@@ -10,13 +10,10 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata = buildRootMetadata();
 
-/** Default to dark browser chrome; `next-themes` still toggles `.dark` / `.light` for the UI. */
+/** Default to dark browser chrome; `next-themes` still toggles `.dark` for the UI. */
 export const viewport: Viewport = {
-  colorScheme: "dark light",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { color: "#0a192f" },
-  ],
+  colorScheme: "dark",
+  themeColor: "#0a192f",
 };
 
 export default function RootLayout({
@@ -25,10 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full" suppressHydrationWarning>
+    <html lang="en" className="h-full dark" suppressHydrationWarning>
       <head>
         <Script id="portfolio-theme-init" strategy="beforeInteractive">
-          {`(function(){try{var t=localStorage.getItem("portfolio-theme");if(t==="light"){document.documentElement.classList.remove("dark");}else if(t==="system"){if(!window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.classList.remove("dark");}else{document.documentElement.classList.add("dark");}}else{document.documentElement.classList.add("dark");}}catch(e){document.documentElement.classList.add("dark");}})();`}
+          {`(function(){try{var raw=localStorage.getItem("portfolio-theme");var t=raw?JSON.parse(raw):null;if(t==="light"){document.documentElement.classList.remove("dark");}else{document.documentElement.classList.add("dark");}}catch(e){document.documentElement.classList.add("dark");}})();`}
         </Script>
       </head>
       <body

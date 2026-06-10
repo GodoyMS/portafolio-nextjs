@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   Select,
@@ -12,9 +12,8 @@ import {
 } from "@/components/ui/select";
 
 const options = [
-  { value: "light", label: "Light", Icon: Sun },
   { value: "dark", label: "Dark", Icon: Moon },
-  { value: "system", label: "System", Icon: Monitor },
+  { value: "light", label: "Light", Icon: Sun },
 ] as const;
 
 export function ThemeSwitcher() {
@@ -22,8 +21,8 @@ export function ThemeSwitcher() {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
 
-  const value = theme ?? "system";
-  const active = options.find((o) => o.value === value) ?? options[2];
+  const value = theme ?? "dark";
+  const active = options.find((o) => o.value === value) ?? options[0];
   const ActiveIcon = active.Icon;
 
   if (!mounted) {
