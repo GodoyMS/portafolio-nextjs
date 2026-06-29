@@ -100,13 +100,14 @@ model Project {
   githubUrl     String?
   productionUrl String?
   playstoreUrl  String?
+  sortOrder     Int         @default(0)
   createdAt     DateTime    @default(now())
 
   skills ProjectSkill[]
   links  ProjectLink[]
 
   @@index([type, isFeatured])
-  @@index([year(sort: Desc)])
+  @@index([sortOrder])
 }
 
 model ProjectSkill {

@@ -55,6 +55,7 @@ export async function createProject(formData: FormData): Promise<ActionResult<{ 
     } catch (e) {
       return err(e instanceof Error ? e.message : "Upload failed.");
     }
+    const count = await prisma.project.count();
     const row = await prisma.project.create({
       data: {
         title: parsed.data.title,
@@ -67,6 +68,7 @@ export async function createProject(formData: FormData): Promise<ActionResult<{ 
         githubUrl: parsed.data.githubUrl ?? null,
         productionUrl: parsed.data.productionUrl ?? null,
         playstoreUrl: parsed.data.playstoreUrl ?? null,
+        sortOrder: count,
         skills: { create: parsed.data.skills.map((name) => ({ name })) },
         links: { create: parsed.data.links.map((l) => ({ title: l.title, href: l.href })) },
       },
@@ -163,6 +165,23 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
   } catch (e) {
     if (e instanceof Error && e.message === "UNAUTHORIZED") return err("Unauthorized.");
     return err(e instanceof Error ? e.message : "Failed to update.");
+  }
+}
+
+export async function reorderProjects(orderedIds: string[]): Promise<ActionResult> {
+  try {
+    await assertAdmin();
+    await prisma.$transaction(
+      orderedIds.map((id, index) =>
+        prisma.project.update({ where: { id }, data: { sortOrder: index } })
+      )
+    );
+    revalidatePath("/");
+    revalidatePath("/admin/projects");
+    return ok();
+  } catch (e) {
+    if (e instanceof Error && e.message === "UNAUTHORIZED") return err("Unauthorized.");
+    return err(e instanceof Error ? e.message : "Failed to reorder.");
   }
 }
 
