@@ -50,8 +50,8 @@ export default async function HomePage() {
         <WorkSection items={data.workExperience} />
         <EducationSection items={data.education} />
         <MainProjectsSection featured={data.featuredMain} />
-        <FigmaDesignsSection />
         <NoteworthySection items={data.noteworthy} />
+        <FigmaDesignsSection hasNoteworthy={data.noteworthy.length > 0} />
       </main>
       <SiteFooter />
     </div>

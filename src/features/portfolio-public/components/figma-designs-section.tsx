@@ -97,13 +97,13 @@ function FigmaProjectCard({ project }: { project: FigmaProject }) {
   );
 }
 
-export function FigmaDesignsSection() {
+export function FigmaDesignsSection({ hasNoteworthy }: { hasNoteworthy: boolean }) {
   const reduce = useReducedMotion();
 
   return (
     <BcSection id="designs">
       <BcSectionHeader
-        eyebrow="05 — Figma Designs"
+        eyebrow={hasNoteworthy ? "06 — Figma Designs" : "05 — Figma Designs"}
         title="Design use cases"
         description="High-fidelity product explorations focused on real user flows, admin operations, and business outcomes."
       />
