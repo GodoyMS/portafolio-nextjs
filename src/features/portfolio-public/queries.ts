@@ -17,12 +17,12 @@ export async function getHomeData() {
     }),
     prisma.project.findMany({
       where: { type: "MAIN", isFeatured: true },
-      orderBy: [{ year: "desc" }, { createdAt: "desc" }],
+      orderBy: { sortOrder: "asc" },
       include: { skills: true, links: true },
     }),
     prisma.project.findMany({
       where: { type: "NOTEWORTHY" },
-      orderBy: [{ year: "desc" }, { createdAt: "desc" }],
+      orderBy: { sortOrder: "asc" },
       include: { skills: true, links: true },
     }),
   ]);
@@ -37,7 +37,7 @@ export async function getHomeData() {
 
 export async function getAllProjects() {
   return prisma.project.findMany({
-    orderBy: [{ year: "desc" }, { createdAt: "desc" }],
+    orderBy: { sortOrder: "asc" },
     include: { skills: true, links: true },
   });
 }
