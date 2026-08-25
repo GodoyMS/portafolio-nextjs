@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Portfolio logo">
+<title>Portfolio logo</title>
+<rect x="0" y="0" width="32" height="32" rx="7.4" fill="#0a192f"/>
+<rect x="0.7" y="0.7" width="30.6" height="30.6" rx="6.8" fill="none" stroke="#1b3352" stroke-width="1.1"/>
+<path d="M27.6 16L21.8 26.05L10.2 26.05L4.4 16L10.2 5.95L21.8 5.95Z" stroke="#64ffda" stroke-width="2.2" stroke-opacity="0.55" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M11.6 11.6L16 16L11.6 20.4" stroke="#64ffda" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M17.7 21.3L21.3 21.3" stroke="#64ffda" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
