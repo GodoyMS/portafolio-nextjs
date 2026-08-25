@@ -5,6 +5,21 @@ export const alt = `${siteConfig.personName} — software engineer portfolio`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/** Brand mark, inlined so the OG route stays self-contained (see `LogoMark`). */
+function Mark() {
+  return (
+    <svg width={72} height={72} viewBox="0 0 32 32" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path
+        d="M29 16L22.5 27.26L9.5 27.26L3 16L9.5 4.74L22.5 4.74Z"
+        stroke="#3c988d"
+        strokeWidth={2.47}
+      />
+      <path d="M11.07 11.07L16 16L11.07 20.93" stroke="#64ffda" strokeWidth={3.03} />
+      <path d="M17.91 21.94L21.94 21.94" stroke="#64ffda" strokeWidth={3.03} />
+    </svg>
+  );
+}
+
 export default function OpenGraphImage() {
   const { personName, personTitle, heroTagline } = siteConfig;
 
@@ -23,6 +38,9 @@ export default function OpenGraphImage() {
             'ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
         }}
       >
+        <div style={{ display: "flex", marginBottom: 28 }}>
+          <Mark />
+        </div>
         <div
           style={{
             fontSize: 64,

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { LogoMark } from "@/components/logo-mark";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -85,9 +86,13 @@ export function SiteHeader({ cvUrl }: { cvUrl: string | null }) {
       >
         <Link
           href="/"
-          className={cn(bcClass.brandLink, "min-w-0 max-w-[min(100%,12rem)] truncate sm:max-w-none")}
+          aria-label={`${siteConfig.personName} — home`}
+          className={cn(bcClass.brandLink, "flex min-w-0 items-center gap-2.5")}
         >
-          {siteConfig.personName}
+          <LogoMark className="size-7 shrink-0 text-primary" />
+          <span className="max-w-[min(100%,12rem)] truncate sm:max-w-none">
+            {siteConfig.personName}
+          </span>
         </Link>
 
         {/* Desktop */}
