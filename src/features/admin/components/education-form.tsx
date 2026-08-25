@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import type { Education, EducationLink } from "@prisma/client";
@@ -9,9 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DynamicLinkFields, type LinkRow } from "./dynamic-link-fields";
+import { AdminFileField } from "./admin-file-field";
+import { AdminFormError } from "./admin-form-error";
 import { createEducation, updateEducation } from "@/features/education/actions";
+import { educationCreateSchema } from "@/features/education/schemas";
 import { Spinner } from "@/components/ui/spinner";
 import { format } from "date-fns";
+import { describeAdminError, runAdminAction } from "@/lib/admin-errors";
+import { discardUploadedUrls, uploadFileDirect } from "@/lib/direct-upload";
 
 type EducationWithLinks = Education & { links: EducationLink[] };
 
@@ -21,8 +26,10 @@ function toDateInput(d: Date) {
 
 export function EducationForm({ initial }: { initial?: EducationWithLinks | null }) {
   const router = useRouter();
-  const [pending, startTransition] = useTransition();
   const isEdit = Boolean(initial);
+  const [pending, setPending] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [progress, setProgress] = useState<{ label: string; percent?: number } | null>(null);
 
   const [institutionName, setInstitutionName] = useState(initial?.institutionName ?? "");
   const [degreeTitle, setDegreeTitle] = useState(initial?.degreeTitle ?? "");
@@ -33,35 +40,87 @@ export function EducationForm({ initial }: { initial?: EducationWithLinks | null
   const [links, setLinks] = useState<LinkRow[]>(
     initial?.links.map((l) => ({ title: l.title, href: l.href })) ?? []
   );
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoError, setLogoError] = useState<string | null>(null);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    fd.set("institutionName", institutionName);
-    fd.set("degreeTitle", degreeTitle);
-    fd.set("fieldOfStudy", fieldOfStudy);
-    fd.set("startDate", startDate);
-    if (!isPresent && endDate) fd.set("endDate", endDate);
-    else fd.delete("endDate");
-    if (isPresent) fd.set("isPresent", "on");
-    else fd.delete("isPresent");
-    fd.set("links", JSON.stringify(links.filter((l) => l.title && l.href)));
-    if (initial?.id) fd.set("id", initial.id);
+    if (pending) return;
+    if (logoError) {
+      setFormError(logoError);
+      toast.error(logoError);
+      return;
+    }
 
-    startTransition(async () => {
-      const res = isEdit ? await updateEducation(fd) : await createEducation(fd);
+    const parsed = educationCreateSchema.safeParse({
+      institutionName,
+      degreeTitle,
+      fieldOfStudy,
+      startDate,
+      endDate: isPresent ? null : endDate || null,
+      isPresent,
+      links: links.filter((l) => l.title && l.href),
+    });
+    if (!parsed.success) {
+      const message = parsed.error.issues.map((i) => i.message).join(" ");
+      setFormError(message);
+      toast.error(message);
+      return;
+    }
+
+    setPending(true);
+    setFormError(null);
+    const uploaded: string[] = [];
+    try {
+      let institutionLogoUrl: string | undefined;
+      if (logoFile) {
+        setProgress({ label: "Uploading logo…", percent: 0 });
+        institutionLogoUrl = await uploadFileDirect({
+          file: logoFile,
+          kind: "image",
+          folder: "portfolio/education",
+          onProgress: (percent) => setProgress({ label: "Uploading logo…", percent }),
+        });
+        uploaded.push(institutionLogoUrl);
+      }
+      setProgress({ label: isEdit ? "Saving education…" : "Creating education…" });
+      const fd = new FormData();
+      fd.set("institutionName", parsed.data.institutionName);
+      fd.set("degreeTitle", parsed.data.degreeTitle);
+      fd.set("fieldOfStudy", parsed.data.fieldOfStudy);
+      fd.set("startDate", startDate);
+      if (!parsed.data.isPresent && endDate) fd.set("endDate", endDate);
+      if (parsed.data.isPresent) fd.set("isPresent", "on");
+      fd.set("links", JSON.stringify(parsed.data.links));
+      if (initial?.id) fd.set("id", initial.id);
+      if (institutionLogoUrl) fd.set("institutionLogoUrl", institutionLogoUrl);
+
+      const res = await runAdminAction(async () =>
+        isEdit ? await updateEducation(fd) : await createEducation(fd)
+      );
       if (!res.ok) {
+        await discardUploadedUrls(uploaded);
+        setFormError(res.error);
         toast.error(res.error);
         return;
       }
       toast.success(isEdit ? "Education updated." : "Education created.");
       router.push("/admin/education");
       router.refresh();
-    });
+    } catch (error) {
+      await discardUploadedUrls(uploaded);
+      const message = describeAdminError(error);
+      setFormError(message);
+      toast.error(message);
+    } finally {
+      setPending(false);
+      setProgress(null);
+    }
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto max-w-3xl space-y-8">
+    <form onSubmit={onSubmit} className="mx-auto max-w-3xl space-y-8" noValidate>
+      <AdminFormError message={formError} />
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2 sm:col-span-2">
           <Label htmlFor="institutionName">Institution name</Label>
@@ -73,12 +132,19 @@ export function EducationForm({ initial }: { initial?: EducationWithLinks | null
             onChange={(e) => setInstitutionName(e.target.value)}
           />
         </div>
-        <div className="space-y-2 sm:col-span-2">
-          <Label htmlFor="institutionLogo">Logo</Label>
-          <Input id="institutionLogo" name="institutionLogo" type="file" accept="image/*" />
-          {initial?.institutionLogo ? (
-            <p className="text-muted-foreground text-xs">Current logo is kept unless you upload a new file.</p>
-          ) : null}
+        <div className="sm:col-span-2">
+          <AdminFileField
+            label="Logo"
+            kind="image"
+            currentUrl={initial?.institutionLogo}
+            file={logoFile}
+            error={logoError}
+            disabled={pending}
+            onFileChange={(file, error) => {
+              setLogoFile(file);
+              setLogoError(error);
+            }}
+          />
         </div>
         <div className="space-y-2 sm:col-span-2">
           <Label htmlFor="degreeTitle">Degree title</Label>
@@ -119,7 +185,7 @@ export function EducationForm({ initial }: { initial?: EducationWithLinks | null
             id="endDate"
             name="endDate"
             type="date"
-            disabled={isPresent}
+            disabled={isPresent || pending}
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
@@ -134,12 +200,19 @@ export function EducationForm({ initial }: { initial?: EducationWithLinks | null
 
       <DynamicLinkFields value={links} onChange={setLinks} />
 
+      {progress ? (
+        <p className="text-muted-foreground text-sm">
+          {progress.label}
+          {typeof progress.percent === "number" ? ` ${progress.percent}%` : null}
+        </p>
+      ) : null}
+
       <div className="flex gap-2">
         <Button type="submit" disabled={pending}>
           {pending ? (
             <>
               <Spinner className="size-4" />
-              Saving…
+              {progress?.label ?? "Saving…"}
             </>
           ) : isEdit ? (
             "Save changes"

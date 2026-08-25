@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
+import { AdminFormError } from "./admin-form-error";
+import { describeAdminError } from "@/lib/admin-errors";
 
 export function AdminLoginForm() {
   const router = useRouter();
@@ -16,27 +18,45 @@ export function AdminLoginForm() {
   const [pending, startTransition] = useTransition();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState<string | null>(null);
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !password) {
+      const message = "Enter both email and password.";
+      setFormError(message);
+      toast.error(message);
+      return;
+    }
+    setFormError(null);
     startTransition(async () => {
-      const res = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-      if (res?.error) {
-        toast.error("Invalid email or password.");
-        return;
+      try {
+        const res = await signIn("credentials", {
+          email: trimmedEmail,
+          password,
+          redirect: false,
+        });
+        if (res?.error) {
+          const message = "Invalid email or password.";
+          setFormError(message);
+          toast.error(message);
+          return;
+        }
+        toast.success("Welcome back.");
+        router.push(callbackUrl);
+        router.refresh();
+      } catch (error) {
+        const message = describeAdminError(error);
+        setFormError(message);
+        toast.error(message);
       }
-      toast.success("Welcome back.");
-      router.push(callbackUrl);
-      router.refresh();
     });
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-4" noValidate>
+      <AdminFormError message={formError} title="Couldn’t sign in" />
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input

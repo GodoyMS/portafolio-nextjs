@@ -4,31 +4,30 @@ import { revalidatePath } from "next/cache";
 import { assertAdmin } from "@/lib/auth-server";
 import { ok, err, type ActionResult } from "@/lib/action-result";
 import { prisma } from "@/lib/prisma";
-import { deleteFromR2ByPublicUrl } from "@/lib/r2";
-import { uploadPdfFile } from "@/lib/upload-file";
+import { deleteFromR2ByPublicUrl, readManagedAssetUrl } from "@/lib/r2";
 
 export async function replaceCv(formData: FormData): Promise<ActionResult> {
   try {
     await assertAdmin();
-    const file = formData.get("file") as File | null;
-    let fileUrl: string;
-    try {
-      fileUrl = await uploadPdfFile(file, "portfolio/cv");
-    } catch (e) {
-      return err(e instanceof Error ? e.message : "Upload failed.");
-    }
+    const file = readManagedAssetUrl(formData, "fileUrl", "portfolio/cv");
+    if (!file.ok) return err(file.error);
+    if (!file.url) return err("Choose a PDF before uploading.");
     const existing = await prisma.cV.findUnique({ where: { id: 1 } });
     await prisma.cV.upsert({
       where: { id: 1 },
-      create: { id: 1, fileUrl },
-      update: { fileUrl },
+      create: { id: 1, fileUrl: file.url },
+      update: { fileUrl: file.url },
     });
-    await deleteFromR2ByPublicUrl(existing?.fileUrl).catch(() => undefined);
+    if (existing?.fileUrl && existing.fileUrl !== file.url) {
+      await deleteFromR2ByPublicUrl(existing.fileUrl).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/admin/cv");
     return ok();
   } catch (e) {
-    if (e instanceof Error && e.message === "UNAUTHORIZED") return err("Unauthorized.");
-    return err(e instanceof Error ? e.message : "Failed to upload CV.");
+    if (e instanceof Error && e.message === "UNAUTHORIZED") {
+      return err("You are not signed in or your session expired. Sign in again and retry.");
+    }
+    return err(e instanceof Error ? e.message : "Failed to upload the CV.");
   }
 }

@@ -30,7 +30,7 @@ export default async function AdminCvPage() {
       ) : (
         <p className="text-muted-foreground text-sm">No CV uploaded yet.</p>
       )}
-      <CvUploadForm />
+      <CvUploadForm currentUrl={cv?.fileUrl} />
     </div>
   );
 }

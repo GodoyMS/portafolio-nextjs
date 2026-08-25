@@ -31,8 +31,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      // Project demo videos are validated to 80MB by the upload action.
-      bodySizeLimit: "85mb",
+      // Server Actions only exchange upload metadata; bytes go directly to R2.
+      bodySizeLimit: "2mb",
     },
   },
   async headers() {

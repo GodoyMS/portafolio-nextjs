@@ -22,6 +22,7 @@ import type { Project, ProjectSkill, ProjectLink } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
 import { ProjectRowActions } from "./project-row-actions";
 import { reorderProjects } from "@/features/projects/actions";
+import { runAdminAction } from "@/lib/admin-errors";
 import { cn } from "@/lib/utils";
 
 type Row = Project & { skills: ProjectSkill[]; links: ProjectLink[] };
@@ -90,10 +91,10 @@ export function ProjectsTableDnd({ initialRows }: { initialRows: Row[] }) {
     setRows(reordered);
 
     startTransition(async () => {
-      const res = await reorderProjects(reordered.map((r) => r.id));
+      const res = await runAdminAction(() => reorderProjects(reordered.map((r) => r.id)));
       if (!res.ok) {
         setRows(rows);
-        toast.error("Failed to save order.");
+        toast.error(res.error);
       }
     });
   }
