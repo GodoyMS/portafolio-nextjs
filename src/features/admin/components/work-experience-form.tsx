@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import type { WorkExperience, WorkExperienceBadge, WorkExperienceLink } from "@prisma/client";
@@ -11,10 +11,15 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { DynamicLinkFields, type LinkRow } from "./dynamic-link-fields";
 import { DynamicBadgeFields, type BadgeRow } from "./dynamic-badge-fields";
+import { AdminFileField } from "./admin-file-field";
+import { AdminFormError } from "./admin-form-error";
 import { createWorkExperience, updateWorkExperience } from "@/features/work-experience/actions";
+import { workExperienceCreateSchema } from "@/features/work-experience/schemas";
 import { EMPTY_TIPTAP_DOC } from "@/lib/empty-rich-text";
 import { Spinner } from "@/components/ui/spinner";
 import { format } from "date-fns";
+import { describeAdminError, runAdminAction } from "@/lib/admin-errors";
+import { discardUploadedUrls, uploadFileDirect } from "@/lib/direct-upload";
 
 type WorkExperienceWithRelations = WorkExperience & {
   links: WorkExperienceLink[];
@@ -27,8 +32,10 @@ function toDateInput(d: Date) {
 
 export function WorkExperienceForm({ initial }: { initial?: WorkExperienceWithRelations | null }) {
   const router = useRouter();
-  const [pending, startTransition] = useTransition();
   const isEdit = Boolean(initial);
+  const [pending, setPending] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [progress, setProgress] = useState<{ label: string; percent?: number } | null>(null);
 
   const [role, setRole] = useState(initial?.role ?? "");
   const [company, setCompany] = useState(initial?.company ?? "");
@@ -41,38 +48,93 @@ export function WorkExperienceForm({ initial }: { initial?: WorkExperienceWithRe
     initial?.links.map((l) => ({ title: l.title, href: l.href })) ?? []
   );
   const [badges, setBadges] = useState<BadgeRow[]>(initial?.badges.map((b) => ({ label: b.label })) ?? []);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageError, setImageError] = useState<string | null>(null);
 
   const descriptionJson = useMemo(() => JSON.stringify(description), [description]);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    fd.set("role", role);
-    fd.set("company", company);
-    fd.set("companyLink", companyLink);
-    fd.set("startDate", startDate);
-    if (!isPresent && endDate) fd.set("endDate", endDate);
-    else fd.delete("endDate");
-    if (isPresent) fd.set("isPresent", "on");
-    else fd.delete("isPresent");
-    fd.set("description", descriptionJson);
-    fd.set("links", JSON.stringify(links.filter((l) => l.title && l.href)));
-    fd.set("badges", JSON.stringify(badges.filter((b) => b.label.trim())));
-    if (initial?.id) fd.set("id", initial.id);
-    startTransition(async () => {
-      const res = isEdit ? await updateWorkExperience(fd) : await createWorkExperience(fd);
+    if (pending) return;
+    if (imageError) {
+      setFormError(imageError);
+      toast.error(imageError);
+      return;
+    }
+
+    const parsed = workExperienceCreateSchema.safeParse({
+      role,
+      company,
+      companyLink,
+      startDate,
+      endDate: isPresent ? null : endDate || null,
+      isPresent,
+      description,
+      links: links.filter((l) => l.title && l.href),
+      badges: badges.filter((b) => b.label.trim()),
+    });
+    if (!parsed.success) {
+      const message = parsed.error.issues.map((i) => i.message).join(" ");
+      setFormError(message);
+      toast.error(message);
+      return;
+    }
+
+    setPending(true);
+    setFormError(null);
+    const uploaded: string[] = [];
+    try {
+      let companyImageUrl: string | undefined;
+      if (imageFile) {
+        setProgress({ label: "Uploading image…", percent: 0 });
+        companyImageUrl = await uploadFileDirect({
+          file: imageFile,
+          kind: "image",
+          folder: "portfolio/company",
+          onProgress: (percent) => setProgress({ label: "Uploading image…", percent }),
+        });
+        uploaded.push(companyImageUrl);
+      }
+      setProgress({ label: isEdit ? "Saving experience…" : "Creating experience…" });
+      const fd = new FormData();
+      fd.set("role", parsed.data.role);
+      fd.set("company", parsed.data.company);
+      if (parsed.data.companyLink) fd.set("companyLink", parsed.data.companyLink);
+      fd.set("startDate", startDate);
+      if (!parsed.data.isPresent && endDate) fd.set("endDate", endDate);
+      if (parsed.data.isPresent) fd.set("isPresent", "on");
+      fd.set("description", descriptionJson);
+      fd.set("links", JSON.stringify(parsed.data.links));
+      fd.set("badges", JSON.stringify(parsed.data.badges));
+      if (initial?.id) fd.set("id", initial.id);
+      if (companyImageUrl) fd.set("companyImageUrl", companyImageUrl);
+
+      const res = await runAdminAction(async () =>
+        isEdit ? await updateWorkExperience(fd) : await createWorkExperience(fd)
+      );
       if (!res.ok) {
+        await discardUploadedUrls(uploaded);
+        setFormError(res.error);
         toast.error(res.error);
         return;
       }
       toast.success(isEdit ? "Experience updated." : "Experience created.");
       router.push("/admin/work-experience");
       router.refresh();
-    });
+    } catch (error) {
+      await discardUploadedUrls(uploaded);
+      const message = describeAdminError(error);
+      setFormError(message);
+      toast.error(message);
+    } finally {
+      setPending(false);
+      setProgress(null);
+    }
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto max-w-3xl space-y-8">
+    <form onSubmit={onSubmit} className="mx-auto max-w-3xl space-y-8" noValidate>
+      <AdminFormError message={formError} />
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2 sm:col-span-2">
           <Label htmlFor="role">Role</Label>
@@ -93,12 +155,19 @@ export function WorkExperienceForm({ initial }: { initial?: WorkExperienceWithRe
             onChange={(e) => setCompanyLink(e.target.value)}
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="companyImage">Company image</Label>
-          <Input id="companyImage" name="companyImage" type="file" accept="image/*" />
-          {initial?.companyImage ? (
-            <p className="text-muted-foreground text-xs">Current file is kept unless you choose a new image.</p>
-          ) : null}
+        <div className="sm:col-span-2">
+          <AdminFileField
+            label="Company image"
+            kind="image"
+            currentUrl={initial?.companyImage}
+            file={imageFile}
+            error={imageError}
+            disabled={pending}
+            onFileChange={(file, error) => {
+              setImageFile(file);
+              setImageError(error);
+            }}
+          />
         </div>
         <div className="space-y-2">
           <Label htmlFor="startDate">Start date</Label>
@@ -119,7 +188,7 @@ export function WorkExperienceForm({ initial }: { initial?: WorkExperienceWithRe
             id="endDate"
             name="endDate"
             type="date"
-            disabled={isPresent}
+            disabled={isPresent || pending}
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
@@ -140,12 +209,19 @@ export function WorkExperienceForm({ initial }: { initial?: WorkExperienceWithRe
       <DynamicLinkFields value={links} onChange={setLinks} />
       <DynamicBadgeFields value={badges} onChange={setBadges} />
 
+      {progress ? (
+        <p className="text-muted-foreground text-sm">
+          {progress.label}
+          {typeof progress.percent === "number" ? ` ${progress.percent}%` : null}
+        </p>
+      ) : null}
+
       <div className="flex gap-2">
         <Button type="submit" disabled={pending}>
           {pending ? (
             <>
               <Spinner className="size-4" />
-              Saving…
+              {progress?.label ?? "Saving…"}
             </>
           ) : isEdit ? (
             "Save changes"

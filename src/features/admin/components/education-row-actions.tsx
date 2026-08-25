@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { deleteEducation } from "@/features/education/actions";
+import { runAdminAction } from "@/lib/admin-errors";
 import { MoreHorizontal } from "lucide-react";
 
 export function EducationRowActions({ id }: { id: string }) {
@@ -34,7 +35,7 @@ export function EducationRowActions({ id }: { id: string }) {
           onClick={() => {
             if (!confirm("Delete this education entry?")) return;
             startTransition(async () => {
-              const res = await deleteEducation(id);
+              const res = await runAdminAction(() => deleteEducation(id));
               if (!res.ok) toast.error(res.error);
               else {
                 toast.success("Deleted.");
