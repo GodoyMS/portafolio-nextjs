@@ -145,9 +145,8 @@ function FramedPortrait({ heroImage }: { heroImage: string }) {
               src={heroImage}
               alt={`${siteConfig.personName} — profile photo`}
               fill
-              sizes="(min-width: 1024px) 450px, 85vw"
+              sizes="(min-width: 1024px) 300px, 85vw"
               className="object-cover object-top"
-              priority
             />
           ) : (
             <>
@@ -160,9 +159,8 @@ function FramedPortrait({ heroImage }: { heroImage: string }) {
                   src={heroImage}
                   alt={`${siteConfig.personName} — profile photo`}
                   fill
-                  sizes="(min-width: 1024px) 450px, 85vw"
+                  sizes="(min-width: 1024px) 300px, 85vw"
                   className="object-cover    object-top brightness-110 contrast-[1.03]"
-                  priority
                 />
               </div>
               <Image
@@ -170,7 +168,7 @@ function FramedPortrait({ heroImage }: { heroImage: string }) {
                 alt=""
                 aria-hidden
                 fill
-                sizes="(min-width: 1024px) 450px, 85vw"
+                sizes="(min-width: 1024px) 300px, 85vw"
                 className=" absolute inset-0 z-2 object-cover object-top transition-opacity duration-500 ease-out opacity-0 group-hover:opacity-100"
               />
             </>

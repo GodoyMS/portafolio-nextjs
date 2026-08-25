@@ -52,6 +52,7 @@ function FigmaProjectCard({ project }: { project: FigmaProject }) {
             alt={project.title}
             width={400}
             height={400}
+            sizes="(min-width: 768px) 400px, calc(100vw - 5rem)"
             className="object-cover rounded-lg   "
           />
         </div>

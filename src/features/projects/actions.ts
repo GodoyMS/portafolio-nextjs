@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { assertAdmin } from "@/lib/auth-server";
 import { ok, err, type ActionResult } from "@/lib/action-result";
 import { prisma } from "@/lib/prisma";
-import { deleteFromR2ByPublicUrl, readManagedAssetUrl, replaceManagedAsset } from "@/lib/r2";
+import { deleteFromR2ByPublicUrl, readManagedAssetUrl } from "@/lib/r2";
 import { projectCreateSchema, projectUpdateSchema } from "./schemas";
 import { ProjectType } from "@prisma/client";
 
@@ -105,8 +105,8 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
     }
     const existing = await prisma.project.findUnique({ where: { id: parsed.data.id } });
     if (!existing) return err("Project not found. It may have been deleted.");
-    const imagePreview = await replaceManagedAsset(existing.imagePreview, image.url);
-    const videoDemo = await replaceManagedAsset(existing.videoDemo, video.url);
+    const imagePreview = image.url ?? existing.imagePreview;
+    const videoDemo = video.url ?? existing.videoDemo;
     await prisma.projectSkill.deleteMany({ where: { projectId: id } });
     await prisma.projectLink.deleteMany({ where: { projectId: id } });
     await prisma.project.update({
@@ -126,6 +126,13 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
         links: { create: parsed.data.links.map((l) => ({ title: l.title, href: l.href })) },
       },
     });
+    // The database must point at the replacement before the old object is removed.
+    if (image.url && image.url !== existing.imagePreview) {
+      await deleteFromR2ByPublicUrl(existing.imagePreview).catch(() => undefined);
+    }
+    if (video.url && video.url !== existing.videoDemo) {
+      await deleteFromR2ByPublicUrl(existing.videoDemo).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/projects");
     revalidatePath("/admin/projects");

@@ -15,12 +15,10 @@ const host = r2Hostname();
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "2mb",
-    },
-  },
   images: {
+    formats: ["image/webp"],
+    qualities: [75, 85],
+    minimumCacheTTL: 60 * 60 * 24 * 31,
     remotePatterns: host
       ? [
           {
@@ -30,6 +28,12 @@ const nextConfig: NextConfig = {
           },
         ]
       : [],
+  },
+  experimental: {
+    serverActions: {
+      // Server Actions only exchange upload metadata; bytes go directly to R2.
+      bodySizeLimit: "2mb",
+    },
   },
   async headers() {
     return [

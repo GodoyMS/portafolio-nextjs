@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { assertAdmin } from "@/lib/auth-server";
 import { ok, err, type ActionResult } from "@/lib/action-result";
 import { prisma } from "@/lib/prisma";
-import { deleteFromR2ByPublicUrl, readManagedAssetUrl, replaceManagedAsset } from "@/lib/r2";
+import { deleteFromR2ByPublicUrl, readManagedAssetUrl } from "@/lib/r2";
 import { EMPTY_TIPTAP_DOC } from "@/lib/empty-rich-text";
 import { workExperienceCreateSchema, workExperienceUpdateSchema } from "./schemas";
 import type { Prisma } from "@prisma/client";
@@ -108,7 +108,7 @@ export async function updateWorkExperience(formData: FormData): Promise<ActionRe
     const existing = await prisma.workExperience.findUnique({ where: { id: parsed.data.id } });
     if (!existing) return err("Work experience not found. It may have been deleted.");
 
-    const companyImage = await replaceManagedAsset(existing.companyImage, image.url);
+    const companyImage = image.url ?? existing.companyImage;
 
     await prisma.$transaction([
       prisma.workExperienceLink.deleteMany({ where: { workExperienceId: id } }),
@@ -130,6 +130,9 @@ export async function updateWorkExperience(formData: FormData): Promise<ActionRe
         badges: { create: parsed.data.badges.map((b) => ({ label: b.label })) },
       },
     });
+    if (image.url && image.url !== existing.companyImage) {
+      await deleteFromR2ByPublicUrl(existing.companyImage).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/admin/work-experience");
     return ok();

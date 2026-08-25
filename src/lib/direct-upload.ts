@@ -15,6 +15,52 @@ export class DirectUploadError extends Error {
   }
 }
 
+const MAX_IMAGE_DIMENSION = 2400;
+const MAX_IMAGE_PIXELS = 40_000_000;
+
+async function optimizeImageForUpload(file: File): Promise<File> {
+  // Preserve animation; the browser canvas API would flatten animated GIFs.
+  if (file.type === "image/gif") return file;
+
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
+  } catch {
+    throw new DirectUploadError("The selected image is corrupt or unsupported.");
+  }
+
+  try {
+    if (bitmap.width * bitmap.height > MAX_IMAGE_PIXELS) {
+      throw new DirectUploadError("Image exceeds the 40 megapixel safety limit.");
+    }
+
+    const scale = Math.min(1, MAX_IMAGE_DIMENSION / bitmap.width, MAX_IMAGE_DIMENSION / bitmap.height);
+    const width = Math.max(1, Math.round(bitmap.width * scale));
+    const height = Math.max(1, Math.round(bitmap.height * scale));
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d", { alpha: true });
+    if (!context) throw new DirectUploadError("This browser cannot optimize the image.");
+    context.drawImage(bitmap, 0, 0, width, height);
+
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, "image/webp", 0.82)
+    );
+    if (!blob) throw new DirectUploadError("This browser could not optimize the image.");
+
+    // Keep an already-efficient source when conversion would only make it larger.
+    if (scale === 1 && blob.size >= file.size) return file;
+    const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
+    return new File([blob], `${baseName}.webp`, {
+      type: "image/webp",
+      lastModified: file.lastModified,
+    });
+  } finally {
+    bitmap.close();
+  }
+}
+
 function statusMessage(status: number): string {
   if (status === 403 || status === 401) {
     return "Storage rejected the upload (expired or invalid link). Try again.";
@@ -42,6 +88,7 @@ function putFile(params: {
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", uploadUrl);
     xhr.setRequestHeader("Content-Type", contentType);
+    xhr.setRequestHeader("Cache-Control", "public, max-age=31536000, immutable");
     xhr.timeout = 15 * 60 * 1000;
     xhr.upload.onprogress = (event) => {
       if (!event.lengthComputable) return;
@@ -78,7 +125,10 @@ export async function uploadFileDirect(params: {
   folder: UploadFolder;
   onProgress?: (percent: number) => void;
 }): Promise<string> {
-  const { file, kind, folder, onProgress } = params;
+  const { kind, folder, onProgress } = params;
+  const sourceChecked = validateUploadFile(params.file, kind);
+  if (!sourceChecked.ok) throw new DirectUploadError(sourceChecked.error);
+  const file = kind === "image" ? await optimizeImageForUpload(params.file) : params.file;
   const checked = validateUploadFile(file, kind);
   if (!checked.ok) throw new DirectUploadError(checked.error);
 

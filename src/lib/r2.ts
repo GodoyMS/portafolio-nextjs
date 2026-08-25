@@ -15,11 +15,20 @@ const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 const bucket = process.env.R2_BUCKET_NAME;
 const publicBase = process.env.R2_PUBLIC_BASE_URL?.replace(/\/$/, "");
 
+let cachedConfig:
+  | {
+      client: S3Client;
+      bucket: string;
+      publicBase: string;
+    }
+  | undefined;
+
 function requireR2Config(): {
   client: S3Client;
   bucket: string;
   publicBase: string;
 } {
+  if (cachedConfig) return cachedConfig;
   if (!accountId || !accessKeyId || !secretAccessKey || !bucket || !publicBase) {
     throw new Error(
       "R2 is not configured. Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME, R2_PUBLIC_BASE_URL."
@@ -34,7 +43,8 @@ function requireR2Config(): {
     requestChecksumCalculation: "WHEN_REQUIRED",
     responseChecksumValidation: "WHEN_REQUIRED",
   });
-  return { client, bucket, publicBase };
+  cachedConfig = { client, bucket, publicBase };
+  return cachedConfig;
 }
 
 export function publicUrlToObjectKey(publicUrl: string): string | null {
@@ -87,21 +97,6 @@ export function readManagedAssetUrl(
   return { ok: true, url };
 }
 
-export async function replaceManagedAsset(
-  existing: string | null | undefined,
-  next: string | undefined
-): Promise<string | null> {
-  if (!next) return existing ?? null;
-  if (existing && existing !== next) {
-    try {
-      await deleteFromR2ByPublicUrl(existing);
-    } catch (error) {
-      console.error("Failed to delete previous asset from R2:", error);
-    }
-  }
-  return next;
-}
-
 export async function createPresignedPut(params: {
   key: string;
   contentType: string;
@@ -112,6 +107,7 @@ export async function createPresignedPut(params: {
     Bucket: bucket,
     Key: params.key,
     ContentType: params.contentType,
+    CacheControl: "public, max-age=31536000, immutable",
   });
   const uploadUrl = await getSignedUrl(client, command, {
     expiresIn: params.expiresIn ?? 60 * 10,

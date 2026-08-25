@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { assertAdmin } from "@/lib/auth-server";
 import { ok, err, type ActionResult } from "@/lib/action-result";
 import { prisma } from "@/lib/prisma";
-import { deleteFromR2ByPublicUrl, readManagedAssetUrl, replaceManagedAsset } from "@/lib/r2";
+import { deleteFromR2ByPublicUrl, readManagedAssetUrl } from "@/lib/r2";
 import { educationCreateSchema, educationUpdateSchema } from "./schemas";
 
 function parseLinks(formData: FormData) {
@@ -84,7 +84,7 @@ export async function updateEducation(formData: FormData): Promise<ActionResult>
     }
     const existing = await prisma.education.findUnique({ where: { id: parsed.data.id } });
     if (!existing) return err("Education entry not found. It may have been deleted.");
-    const institutionLogo = await replaceManagedAsset(existing.institutionLogo, logo.url);
+    const institutionLogo = logo.url ?? existing.institutionLogo;
     await prisma.educationLink.deleteMany({ where: { educationId: id } });
     await prisma.education.update({
       where: { id },
@@ -99,6 +99,9 @@ export async function updateEducation(formData: FormData): Promise<ActionResult>
         links: { create: parsed.data.links.map((l) => ({ title: l.title, href: l.href })) },
       },
     });
+    if (logo.url && logo.url !== existing.institutionLogo) {
+      await deleteFromR2ByPublicUrl(existing.institutionLogo).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/admin/education");
     return ok();

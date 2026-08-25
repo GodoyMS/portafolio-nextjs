@@ -13,18 +13,14 @@ export async function replaceCv(formData: FormData): Promise<ActionResult> {
     if (!file.ok) return err(file.error);
     if (!file.url) return err("Choose a PDF before uploading.");
     const existing = await prisma.cV.findUnique({ where: { id: 1 } });
-    if (existing?.fileUrl && existing.fileUrl !== file.url) {
-      try {
-        await deleteFromR2ByPublicUrl(existing.fileUrl);
-      } catch (error) {
-        console.error("Failed to delete previous CV from R2:", error);
-      }
-    }
     await prisma.cV.upsert({
       where: { id: 1 },
       create: { id: 1, fileUrl: file.url },
       update: { fileUrl: file.url },
     });
+    if (existing?.fileUrl && existing.fileUrl !== file.url) {
+      await deleteFromR2ByPublicUrl(existing.fileUrl).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/admin/cv");
     return ok();
