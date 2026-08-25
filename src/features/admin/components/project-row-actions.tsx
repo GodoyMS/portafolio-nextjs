@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { deleteProject } from "@/features/projects/actions";
+import { runAdminAction } from "@/lib/admin-errors";
 import { MoreHorizontal } from "lucide-react";
 
 export function ProjectRowActions({ id }: { id: string }) {
@@ -34,7 +35,7 @@ export function ProjectRowActions({ id }: { id: string }) {
           onClick={() => {
             if (!confirm("Delete this project?")) return;
             startTransition(async () => {
-              const res = await deleteProject(id);
+              const res = await runAdminAction(() => deleteProject(id));
               if (!res.ok) toast.error(res.error);
               else {
                 toast.success("Deleted.");

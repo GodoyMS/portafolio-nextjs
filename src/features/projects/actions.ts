@@ -4,34 +4,32 @@ import { revalidatePath } from "next/cache";
 import { assertAdmin } from "@/lib/auth-server";
 import { ok, err, type ActionResult } from "@/lib/action-result";
 import { prisma } from "@/lib/prisma";
-import { deleteFromR2ByPublicUrl } from "@/lib/r2";
-import { uploadImageFile, uploadVideoFile } from "@/lib/upload-file";
+import { deleteFromR2ByPublicUrl, readManagedAssetUrl, replaceManagedAsset } from "@/lib/r2";
 import { projectCreateSchema, projectUpdateSchema } from "./schemas";
 import { ProjectType } from "@prisma/client";
+
+function parseJsonArray<T>(raw: FormDataEntryValue | null, label: string): { ok: true; value: T[] } | { ok: false; error: string } {
+  if (typeof raw !== "string" || !raw.trim()) return { ok: true, value: [] };
+  try {
+    const parsed = JSON.parse(raw) as T[];
+    if (!Array.isArray(parsed)) return { ok: false, error: `Invalid ${label} JSON.` };
+    return { ok: true, value: parsed };
+  } catch {
+    return { ok: false, error: `Invalid ${label} JSON.` };
+  }
+}
 
 export async function createProject(formData: FormData): Promise<ActionResult<{ id: string }>> {
   try {
     await assertAdmin();
-    const imageFile = formData.get("imagePreview") as File | null;
-    const videoFile = formData.get("videoDemo") as File | null;
-    let skills: string[] = [];
-    let links: { title: string; href: string }[] = [];
-    const skillsRaw = formData.get("skills");
-    const linksRaw = formData.get("links");
-    if (typeof skillsRaw === "string" && skillsRaw.trim()) {
-      try {
-        skills = JSON.parse(skillsRaw) as string[];
-      } catch {
-        return err("Invalid skills JSON.");
-      }
-    }
-    if (typeof linksRaw === "string" && linksRaw.trim()) {
-      try {
-        links = JSON.parse(linksRaw) as { title: string; href: string }[];
-      } catch {
-        return err("Invalid links JSON.");
-      }
-    }
+    const skillsRaw = parseJsonArray<string>(formData.get("skills"), "skills");
+    if (!skillsRaw.ok) return err(skillsRaw.error);
+    const linksRaw = parseJsonArray<{ title: string; href: string }>(formData.get("links"), "links");
+    if (!linksRaw.ok) return err(linksRaw.error);
+    const image = readManagedAssetUrl(formData, "imagePreviewUrl", "portfolio/projects");
+    if (!image.ok) return err(image.error);
+    const video = readManagedAssetUrl(formData, "videoDemoUrl", "portfolio/projects");
+    if (!video.ok) return err(video.error);
     const parsed = projectCreateSchema.safeParse({
       title: formData.get("title"),
       description: formData.get("description"),
@@ -41,27 +39,19 @@ export async function createProject(formData: FormData): Promise<ActionResult<{ 
       githubUrl: formData.get("githubUrl") ?? undefined,
       productionUrl: formData.get("productionUrl") ?? undefined,
       playstoreUrl: formData.get("playstoreUrl") ?? undefined,
-      skills,
-      links,
+      skills: skillsRaw.value,
+      links: linksRaw.value,
     });
     if (!parsed.success) {
       return err(parsed.error.issues.map((i) => i.message).join(" "));
-    }
-    let imagePreview: string | undefined;
-    let videoDemo: string | undefined;
-    try {
-      imagePreview = await uploadImageFile(imageFile, "portfolio/projects");
-      videoDemo = await uploadVideoFile(videoFile, "portfolio/projects");
-    } catch (e) {
-      return err(e instanceof Error ? e.message : "Upload failed.");
     }
     const count = await prisma.project.count();
     const row = await prisma.project.create({
       data: {
         title: parsed.data.title,
         description: parsed.data.description,
-        imagePreview: imagePreview ?? null,
-        videoDemo: videoDemo ?? null,
+        imagePreview: image.url ?? null,
+        videoDemo: video.url ?? null,
         year: parsed.data.year,
         type: parsed.data.type as ProjectType,
         isFeatured: parsed.data.isFeatured,
@@ -78,8 +68,10 @@ export async function createProject(formData: FormData): Promise<ActionResult<{ 
     revalidatePath("/admin/projects");
     return ok({ id: row.id });
   } catch (e) {
-    if (e instanceof Error && e.message === "UNAUTHORIZED") return err("Unauthorized.");
-    return err(e instanceof Error ? e.message : "Failed to create.");
+    if (e instanceof Error && e.message === "UNAUTHORIZED") {
+      return err("You are not signed in or your session expired. Sign in again and retry.");
+    }
+    return err(e instanceof Error ? e.message : "Failed to create the project.");
   }
 }
 
@@ -87,26 +79,14 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
   try {
     await assertAdmin();
     const id = String(formData.get("id") ?? "");
-    const imageFile = formData.get("imagePreview") as File | null;
-    const videoFile = formData.get("videoDemo") as File | null;
-    let skills: string[] = [];
-    let links: { title: string; href: string }[] = [];
-    const skillsRaw = formData.get("skills");
-    const linksRaw = formData.get("links");
-    if (typeof skillsRaw === "string" && skillsRaw.trim()) {
-      try {
-        skills = JSON.parse(skillsRaw) as string[];
-      } catch {
-        return err("Invalid skills JSON.");
-      }
-    }
-    if (typeof linksRaw === "string" && linksRaw.trim()) {
-      try {
-        links = JSON.parse(linksRaw) as { title: string; href: string }[];
-      } catch {
-        return err("Invalid links JSON.");
-      }
-    }
+    const skillsRaw = parseJsonArray<string>(formData.get("skills"), "skills");
+    if (!skillsRaw.ok) return err(skillsRaw.error);
+    const linksRaw = parseJsonArray<{ title: string; href: string }>(formData.get("links"), "links");
+    if (!linksRaw.ok) return err(linksRaw.error);
+    const image = readManagedAssetUrl(formData, "imagePreviewUrl", "portfolio/projects");
+    if (!image.ok) return err(image.error);
+    const video = readManagedAssetUrl(formData, "videoDemoUrl", "portfolio/projects");
+    if (!video.ok) return err(video.error);
     const parsed = projectUpdateSchema.safeParse({
       id,
       title: formData.get("title"),
@@ -117,28 +97,16 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
       githubUrl: formData.get("githubUrl") ?? undefined,
       productionUrl: formData.get("productionUrl") ?? undefined,
       playstoreUrl: formData.get("playstoreUrl") ?? undefined,
-      skills,
-      links,
+      skills: skillsRaw.value,
+      links: linksRaw.value,
     });
     if (!parsed.success) {
       return err(parsed.error.issues.map((i) => i.message).join(" "));
     }
     const existing = await prisma.project.findUnique({ where: { id: parsed.data.id } });
-    if (!existing) return err("Not found.");
-    let imagePreview = existing.imagePreview;
-    let videoDemo = existing.videoDemo;
-    try {
-      if (imageFile && imageFile.size > 0) {
-        await deleteFromR2ByPublicUrl(existing.imagePreview);
-        imagePreview = (await uploadImageFile(imageFile, "portfolio/projects")) ?? null;
-      }
-      if (videoFile && videoFile.size > 0) {
-        await deleteFromR2ByPublicUrl(existing.videoDemo);
-        videoDemo = (await uploadVideoFile(videoFile, "portfolio/projects")) ?? null;
-      }
-    } catch (e) {
-      return err(e instanceof Error ? e.message : "Upload failed.");
-    }
+    if (!existing) return err("Project not found. It may have been deleted.");
+    const imagePreview = await replaceManagedAsset(existing.imagePreview, image.url);
+    const videoDemo = await replaceManagedAsset(existing.videoDemo, video.url);
     await prisma.projectSkill.deleteMany({ where: { projectId: id } });
     await prisma.projectLink.deleteMany({ where: { projectId: id } });
     await prisma.project.update({
@@ -163,14 +131,19 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
     revalidatePath("/admin/projects");
     return ok();
   } catch (e) {
-    if (e instanceof Error && e.message === "UNAUTHORIZED") return err("Unauthorized.");
-    return err(e instanceof Error ? e.message : "Failed to update.");
+    if (e instanceof Error && e.message === "UNAUTHORIZED") {
+      return err("You are not signed in or your session expired. Sign in again and retry.");
+    }
+    return err(e instanceof Error ? e.message : "Failed to update the project.");
   }
 }
 
 export async function reorderProjects(orderedIds: string[]): Promise<ActionResult> {
   try {
     await assertAdmin();
+    if (!Array.isArray(orderedIds) || orderedIds.some((id) => typeof id !== "string" || !id)) {
+      return err("Invalid project order.");
+    }
     await prisma.$transaction(
       orderedIds.map((id, index) =>
         prisma.project.update({ where: { id }, data: { sortOrder: index } })
@@ -180,25 +153,34 @@ export async function reorderProjects(orderedIds: string[]): Promise<ActionResul
     revalidatePath("/admin/projects");
     return ok();
   } catch (e) {
-    if (e instanceof Error && e.message === "UNAUTHORIZED") return err("Unauthorized.");
-    return err(e instanceof Error ? e.message : "Failed to reorder.");
+    if (e instanceof Error && e.message === "UNAUTHORIZED") {
+      return err("You are not signed in or your session expired. Sign in again and retry.");
+    }
+    return err(e instanceof Error ? e.message : "Failed to reorder projects.");
   }
 }
 
 export async function deleteProject(id: string): Promise<ActionResult> {
   try {
     await assertAdmin();
+    if (!id) return err("Missing project id.");
     const row = await prisma.project.findUnique({ where: { id } });
-    if (!row) return err("Not found.");
-    await deleteFromR2ByPublicUrl(row.imagePreview);
-    await deleteFromR2ByPublicUrl(row.videoDemo);
+    if (!row) return err("Project not found. It may have already been deleted.");
+    try {
+      await deleteFromR2ByPublicUrl(row.imagePreview);
+      await deleteFromR2ByPublicUrl(row.videoDemo);
+    } catch (error) {
+      console.error("Failed to delete project media from R2:", error);
+    }
     await prisma.project.delete({ where: { id } });
     revalidatePath("/");
     revalidatePath("/projects");
     revalidatePath("/admin/projects");
     return ok();
   } catch (e) {
-    if (e instanceof Error && e.message === "UNAUTHORIZED") return err("Unauthorized.");
-    return err(e instanceof Error ? e.message : "Failed to delete.");
+    if (e instanceof Error && e.message === "UNAUTHORIZED") {
+      return err("You are not signed in or your session expired. Sign in again and retry.");
+    }
+    return err(e instanceof Error ? e.message : "Failed to delete the project.");
   }
 }

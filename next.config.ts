@@ -15,6 +15,11 @@ const host = r2Hostname();
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
   images: {
     remotePatterns: host
       ? [

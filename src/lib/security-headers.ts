@@ -27,6 +27,7 @@ export function buildContentSecurityPolicy(): string {
     `script-src ${scriptParts.join(" ")}`,
     "style-src 'self' 'unsafe-inline'",
     `img-src ${imgParts.join(" ")}`,
+    `media-src 'self' blob: ${r2 ? `https://${r2}` : "https:"}`,
     "font-src 'self'",
     "connect-src 'self' https:",
     "frame-ancestors 'self'",
