@@ -127,14 +127,16 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
     if (!existing) return err("Not found.");
     let imagePreview = existing.imagePreview;
     let videoDemo = existing.videoDemo;
+    let replacedImage = false;
+    let replacedVideo = false;
     try {
       if (imageFile && imageFile.size > 0) {
-        await deleteFromR2ByPublicUrl(existing.imagePreview);
         imagePreview = (await uploadImageFile(imageFile, "portfolio/projects")) ?? null;
+        replacedImage = true;
       }
       if (videoFile && videoFile.size > 0) {
-        await deleteFromR2ByPublicUrl(existing.videoDemo);
         videoDemo = (await uploadVideoFile(videoFile, "portfolio/projects")) ?? null;
+        replacedVideo = true;
       }
     } catch (e) {
       return err(e instanceof Error ? e.message : "Upload failed.");
@@ -158,6 +160,13 @@ export async function updateProject(formData: FormData): Promise<ActionResult> {
         links: { create: parsed.data.links.map((l) => ({ title: l.title, href: l.href })) },
       },
     });
+    // The database must point at the replacement before the old object is removed.
+    if (replacedImage) {
+      await deleteFromR2ByPublicUrl(existing.imagePreview).catch(() => undefined);
+    }
+    if (replacedVideo) {
+      await deleteFromR2ByPublicUrl(existing.videoDemo).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/projects");
     revalidatePath("/admin/projects");

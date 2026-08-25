@@ -46,15 +46,31 @@ export function ProjectMediaCard({
       whileHover={reduce ? undefined : { scale: 1.02 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      {showVideo ? (
-        <video ref={ref} src={video!} className="size-full object-cover" muted playsInline loop preload="none" />
-      ) : image ? (
-        <Image src={image} alt={title} fill className="object-cover" sizes="(min-width: 1024px) 480px, 100vw" />
+      {image ? (
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="(min-width: 1024px) 480px, (min-width: 640px) calc(100vw - 6rem), calc(100vw - 3rem)"
+        />
       ) : (
         <div className="flex size-full items-center justify-center bg-background text-xs font-medium text-muted-foreground">
           {title}
         </div>
       )}
+      {showVideo ? (
+        <video
+          ref={ref}
+          src={video!}
+          className="absolute inset-0 size-full object-cover"
+          muted
+          playsInline
+          loop
+          preload="none"
+          aria-label={`${title} demo`}
+        />
+      ) : null}
     </motion.div>
   );
 }

@@ -90,10 +90,11 @@ export async function updateEducation(formData: FormData): Promise<ActionResult>
     const existing = await prisma.education.findUnique({ where: { id: parsed.data.id } });
     if (!existing) return err("Not found.");
     let institutionLogo = existing.institutionLogo;
+    let replacedLogo = false;
     if (logoFile && logoFile.size > 0) {
       try {
-        await deleteFromR2ByPublicUrl(existing.institutionLogo);
         institutionLogo = (await uploadImageFile(logoFile, "portfolio/education")) ?? null;
+        replacedLogo = true;
       } catch (e) {
         return err(e instanceof Error ? e.message : "Logo upload failed.");
       }
@@ -112,6 +113,9 @@ export async function updateEducation(formData: FormData): Promise<ActionResult>
         links: { create: parsed.data.links.map((l) => ({ title: l.title, href: l.href })) },
       },
     });
+    if (replacedLogo) {
+      await deleteFromR2ByPublicUrl(existing.institutionLogo).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/admin/education");
     return ok();

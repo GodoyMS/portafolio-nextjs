@@ -142,10 +142,11 @@ export async function updateWorkExperience(formData: FormData): Promise<ActionRe
     if (!existing) return err("Not found.");
 
     let companyImage = existing.companyImage;
+    let replacedImage = false;
     if (companyImageFile && companyImageFile.size > 0) {
       try {
-        await deleteFromR2ByPublicUrl(existing.companyImage);
         companyImage = (await uploadImageFile(companyImageFile, "portfolio/company")) ?? null;
+        replacedImage = true;
       } catch (e) {
         return err(e instanceof Error ? e.message : "Image upload failed.");
       }
@@ -171,6 +172,9 @@ export async function updateWorkExperience(formData: FormData): Promise<ActionRe
         badges: { create: parsed.data.badges.map((b) => ({ label: b.label })) },
       },
     });
+    if (replacedImage) {
+      await deleteFromR2ByPublicUrl(existing.companyImage).catch(() => undefined);
+    }
     revalidatePath("/");
     revalidatePath("/admin/work-experience");
     return ok();

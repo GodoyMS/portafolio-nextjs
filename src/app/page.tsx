@@ -14,7 +14,8 @@ import ProfileSection from "@/features/portfolio-public/components/profile-secti
 import { PortfolioJsonLd } from "@/components/seo/portfolio-json-ld";
 import { buildDefaultTitle, buildSeoDescription, getSiteUrl } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+// Serve the landing page from the route cache; admin mutations invalidate it.
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const origin = getSiteUrl();

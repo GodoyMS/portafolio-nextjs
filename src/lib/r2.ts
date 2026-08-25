@@ -10,11 +10,20 @@ const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 const bucket = process.env.R2_BUCKET_NAME;
 const publicBase = process.env.R2_PUBLIC_BASE_URL?.replace(/\/$/, "");
 
+let cachedConfig:
+  | {
+      client: S3Client;
+      bucket: string;
+      publicBase: string;
+    }
+  | undefined;
+
 function requireR2Config(): {
   client: S3Client;
   bucket: string;
   publicBase: string;
 } {
+  if (cachedConfig) return cachedConfig;
   if (!accountId || !accessKeyId || !secretAccessKey || !bucket || !publicBase) {
     throw new Error(
       "R2 is not configured. Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME, R2_PUBLIC_BASE_URL."
@@ -26,7 +35,8 @@ function requireR2Config(): {
     credentials: { accessKeyId, secretAccessKey },
     forcePathStyle: true,
   });
-  return { client, bucket, publicBase };
+  cachedConfig = { client, bucket, publicBase };
+  return cachedConfig;
 }
 
 export function publicUrlToObjectKey(publicUrl: string): string | null {
@@ -49,6 +59,7 @@ export async function uploadToR2(params: {
       Key: params.key,
       Body: params.body,
       ContentType: params.contentType,
+      CacheControl: "public, max-age=31536000, immutable",
     })
   );
   return `${publicBase}/${params.key}`;

@@ -18,12 +18,12 @@ export async function replaceCv(formData: FormData): Promise<ActionResult> {
       return err(e instanceof Error ? e.message : "Upload failed.");
     }
     const existing = await prisma.cV.findUnique({ where: { id: 1 } });
-    if (existing?.fileUrl) await deleteFromR2ByPublicUrl(existing.fileUrl);
     await prisma.cV.upsert({
       where: { id: 1 },
       create: { id: 1, fileUrl },
       update: { fileUrl },
     });
+    await deleteFromR2ByPublicUrl(existing?.fileUrl).catch(() => undefined);
     revalidatePath("/");
     revalidatePath("/admin/cv");
     return ok();

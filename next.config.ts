@@ -16,6 +16,9 @@ const host = r2Hostname();
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
+    formats: ["image/webp"],
+    qualities: [75, 85],
+    minimumCacheTTL: 60 * 60 * 24 * 31,
     remotePatterns: host
       ? [
           {
@@ -25,6 +28,12 @@ const nextConfig: NextConfig = {
           },
         ]
       : [],
+  },
+  experimental: {
+    serverActions: {
+      // Project demo videos are validated to 80MB by the upload action.
+      bodySizeLimit: "85mb",
+    },
   },
   async headers() {
     return [
